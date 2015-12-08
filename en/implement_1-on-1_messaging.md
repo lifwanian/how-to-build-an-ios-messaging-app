@@ -157,3 +157,6 @@ You have to add some codes for getting previous messages. Write the following co
         
     }];
 ```
+
+We must manage the timestamp of the last message and first message. The timestamp of the last message will be used for loading next messages and the timestamp of the first message will be used for loading previous messages.
+
