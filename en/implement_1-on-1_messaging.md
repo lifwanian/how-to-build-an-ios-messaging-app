@@ -6,6 +6,7 @@
 
 You need opponent's user ID in order to start 1-on-1 messaging. Each message in open chat has the sender's user ID. We will use it for messaging.
 
-Open OpenChatChattingViewController.m in Xcode.
+Open **OpenChatChattingViewController.m** in Xcode.
 
 ![OpenChatChattingViewController.m](img/005_OpenChatChattingViewController_m.png)
+
