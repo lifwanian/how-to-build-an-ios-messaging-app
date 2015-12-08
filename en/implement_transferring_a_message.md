@@ -2,5 +2,5 @@
 
 Open **OpenChatChattingViewController.m** in Xcode.
 
-![](img/005_OpenChatChattingViewController_m.png)
+![Open OpenChatChattingViewController.m](img/005_OpenChatChattingViewController_m.png)
 
