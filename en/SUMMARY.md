@@ -4,4 +4,5 @@
 * [Download Sample Project](download_sample_project.md)
 * [Install JIVER framwork via CocoaPods](install_jiver_framwork_via_cocoapods.md)
 * [About Sample Project](about_sample_project.md)
+* Create an application on JIVER Dashboard
 
