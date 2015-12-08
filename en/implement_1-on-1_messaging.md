@@ -128,4 +128,32 @@ If you click "Start messaging with XXX", then [Jiver startMessagingWithUserId:](
 
 These codes get a view controller for messaging from the storyboard and is set by the channel which returned from the block. Finally, the view controller is started.
 
-## 
+## Join messaging channel
+
+You have to add some codes for getting previous messages. Write the following code below ```[Jiver setEventHandlerConnectBlock ...]```.
+
+```objectivec
+    [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+        for (JiverMessage *message in queryResult) {
+            if ([message isPast]) {
+                [messages insertObject:message atIndex:0];
+            }
+            else {
+                [messages addObject:message];
+            }
+            
+            if (lastMessageTimestamp < [message getMessageTimestamp]) {
+                lastMessageTimestamp = [message getMessageTimestamp];
+            }
+            
+            if (firstMessageTimestamp > [message getMessageTimestamp]) {
+                firstMessageTimestamp = [message getMessageTimestamp];
+            }
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+        
+        [Jiver connectWithMessageTs:LLONG_MAX];
+    } endBlock:^(NSError *error) {
+        
+    }];
+```
