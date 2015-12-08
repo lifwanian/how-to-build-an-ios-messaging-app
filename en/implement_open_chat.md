@@ -45,7 +45,7 @@ Add ```JiverChannelListQuery``` object for querying the channels.
 }
 ```
 
-Insert following code to log in and query the channels into the bottom of viewDidLoad method.
+Insert following code to log in and query the channels into the bottom of ```viewDidLoad``` method.
 
 ```objectivec
 - (void)viewDidLoad {
@@ -66,4 +66,5 @@ Insert following code to log in and query the channels into the bottom of viewDi
     }];
 }
 ```
+
 
