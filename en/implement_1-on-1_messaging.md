@@ -160,5 +160,5 @@ You have to add some codes for getting previous messages. Write the following co
 
 We must manage the timestamp of the last message and first message. The timestamp of the last message will be used for loading next messages and the timestamp of the first message will be used for loading previous messages.
 
-In the above code we used LLONG_MAX value for ```prevWithMessageTs:```. It means that the latest messages can be fetched from JIVER server. However, while we are fetching messages, new message can be added to the messaging channel. We have to get all message including it. So we invoke ``````[Jiver connectWithMessageTs:LLONG_MAX]`````` in ```resultBlock:```. New message will be returned in ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]```.
+In the above code we used LLONG_MAX value for ```prevWithMessageTs:```. It means that the latest messages can be fetched from JIVER server. However, while we are fetching messages, new message can be added to the messaging channel. We have to get all message including it. So we invoke ``````[Jiver connectWithMessageTs:LLONG_MAX]`````` in ```resultBlock:```. New message will be returned in ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like a real-time message.
 
