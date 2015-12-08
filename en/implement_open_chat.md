@@ -33,7 +33,7 @@ Initialize JIVER framework in ```application:didFinishLaunchingWithOptions:```
 
 Open the sample project and **OpenChatChannelListViewController.m** in Xcode.
 
-![OpenChatChannelListViewController.m](./img/AppDelegate_m.png)
+![OpenChatChannelListViewController.m](./img/OpenChatChannelListViewController_m_and_SharedPreference_m.png)
 
 
 
