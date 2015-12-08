@@ -17,3 +17,15 @@ You have to prepare channels for open chat in your application in order to imple
 Open the sample project and **AppDelegate.m** in Xcode.
 
 ![AppDelegate.m](AppDelegate_m.png)
+
+Initialize JIVER framework in ```application:didFinishLaunchingWithOptions:```
+
+```objectivec
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    [Jiver initAppId:@"<YOUR_APP_ID>"];
+    
+    return YES;
+}
+```
+
