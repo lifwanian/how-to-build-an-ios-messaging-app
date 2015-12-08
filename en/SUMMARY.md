@@ -7,5 +7,5 @@
 * [Create an application on JIVER Dashboard](create_an_application_on_jiver_dashboard.md)
 * [Implement Open Chat](implement_open_chat.md)
 * [Implement Transferring a Message in Open Chat](implement_transferring_a_message.md)
-* Implement 1-on-1 Messaging
+* [Implement 1-on-1 Messaging](implement_1-on-1_messaging.md)
 
