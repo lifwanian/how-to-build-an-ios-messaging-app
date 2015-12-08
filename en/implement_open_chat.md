@@ -35,7 +35,7 @@ Open the sample project and **OpenChatChannelListViewController.m** in Xcode.
 
 ![OpenChatChannelListViewController.m](./img/003_OpenChatChannelListViewController_m_and_SharedPreference_m.png)
 
-Add ```JiverChannelListQuery``` object for querying the channels.
+Add [JiverChannelListQuery](http://docs.jiver.co/ref/ios/en/Classes/JiverChannelListQuery.html) object for querying the channels.
 
 ```objectivec
 @interface OpenChatChannelListViewController ()<UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate> {
