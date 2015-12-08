@@ -183,6 +183,6 @@ We use UIImagePickerController to pick an image for sending, modify following me
 }
 ```
 
-Build the project, join a channel and send a message. You need two devices or one device and iOS simulator for testing. If you don’t have a real device, you can use **OPERATIONS** on **JIVER Dashboard** to chat with a iOS simulator.
+Build the project, join a channel and send a message. You need two devices or one device and iOS simulator for testing. If you don’t have a real device, you can use **OPERATIONS** on **JIVER Dashboard** to chat with an iOS simulator.
 
 ![Run the project](img/006_Screenshot.png)
