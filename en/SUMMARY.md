@@ -6,5 +6,5 @@
 * [About Sample Project](about_sample_project.md)
 * [Create an application on JIVER Dashboard](create_an_application_on_jiver_dashboard.md)
 * [Implement Open Chat](implement_open_chat.md)
-* Implement Transferring a Message
+* [Implement Transferring a Message](implement_transferring_a_message.md)
 
