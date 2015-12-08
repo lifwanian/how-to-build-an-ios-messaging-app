@@ -9,3 +9,5 @@ First of all, you must create an application on JIVER Dashboard for using it.
 You can see **APP ID** of your application on the dashboard like this:
 
 ![APP ID on JIVER Dashboard](JIVER_-_Dashboard.png)
+
+**APP ID** will be used for the initialization of iOS framework.
