@@ -126,4 +126,5 @@ If you click "Start messaging with XXX", then [Jiver startMessagingWithUserId:](
     }];
 ```
 
-        
+These codes get a view controller for messaging from the storyboard and is set by the channel which returned from the block. Finally, the view controller is started.
+
