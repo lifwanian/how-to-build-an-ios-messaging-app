@@ -104,7 +104,7 @@ If you run the sample project, you can see the channels which you create on the 
 
 ![AppDelegate.m](./img/001_AppDelegate_m.png)
 
-## Transferring a Message in Open Chat
+## Transfer a Message in Open Chat
 
 Open **OpenChatChattingViewController.m** in Xcode.
 
