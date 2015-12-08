@@ -50,4 +50,80 @@ You can see UIAlertController when you click other's message in the open chat li
 
 If you click "Start messaging with XXX", then [Jiver startMessagingWithUserId:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/startMessagingWithUserId:) is invoked. When it is invoked and succeeded, the callback [messagingStartedBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:) will be invoked as well. The callback returns [JiverMessagingChannel](http://docs.jiver.co/ref/ios/en/Classes/JiverMessagingChannel.html) object, then you and the opponent can join the channel.
 
+ You should insert codes for joining the channel in [messagingStartedBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:). Note the codes in the block.
  
+ ```objectivec
+    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+        
+    } errorBlock:^(NSInteger code) {
+        
+    } channelLeftBlock:^(JiverChannel *channel) {
+        
+    } messageReceivedBlock:^(JiverMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+        
+    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+        if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
+            lastMessageTimestamp = [fileLink getMessageTimestamp];
+        }
+        
+        if ([fileLink isPast]) {
+            [messages insertObject:fileLink atIndex:0];
+        }
+        else {
+            [messages addObject:fileLink];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+        UIStoryboard *storyboard = [self storyboard];
+        MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
+        [vc setMessagingChannel:channel];
+        [vc setDelegate:self];
+        [self presentViewController:vc animated:YES completion:nil];
+    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+        
+    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingEndedBlock:^{
+        
+    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingHiddenBlock:^{
+        
+    } readReceivedBlock:^(JiverReadStatus *status) {
+        
+    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+        
+    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+
+    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+
+    } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
+
+    }];
+```
+
+        
