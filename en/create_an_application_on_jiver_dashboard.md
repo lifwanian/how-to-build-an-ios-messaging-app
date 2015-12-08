@@ -7,3 +7,5 @@ First of all, you must create an application on JIVER Dashboard for using it.
 1. Fill up the form about your application and click **CREATE** button.
 
 You can see **APP ID** of your application on the dashboard like this:
+
+![APP ID on JIVER Dashboard](JIVER_-_Dashboard.png)
