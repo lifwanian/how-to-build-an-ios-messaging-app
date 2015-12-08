@@ -9,8 +9,14 @@ The latest version of JIVER iOS framework is already included in the project, so
 pod 'JiverSDK'
 ```
 1. Install JIVER framework. Run following command in terminal.
-1. 
- 
+```
+$ pod install
+```
+1. After the installation, you have to open ```<YOUR_PROJECT>.xcworkspace``` instead of ```<YOUR_PROJECT>.xcodeproj```.
+```
+$ open <YOUR_PROJECT>.xcworkspace
+```
+
 See this [link](https://jiver.gitbooks.io/ios-sdk/content/en/download_sdk.html) for detail.
 
 
