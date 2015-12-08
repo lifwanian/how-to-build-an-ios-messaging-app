@@ -102,7 +102,7 @@ Modify ```loadNextChannelList``` like this:
 
 If you run the sample project, you can see the channels which you create on the dashboard.
 
-![AppDelegate.m](./img/001_AppDelegate_m.png)
+![Channel List](./img/007_Screenshot.png)
 
 ## Transfer a Message in Open Chat
 
