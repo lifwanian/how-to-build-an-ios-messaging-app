@@ -10,3 +10,35 @@ Open **OpenChatChattingViewController.m** in Xcode.
 
 ![OpenChatChattingViewController.m](img/005_OpenChatChattingViewController_m.png)
 
+Implement ```tableView:didSelectRowAtIndexPath:``` for getting the user ID of message's sender.
+
+```objectivec
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIAlertController *messageSubMenu;
+    UIAlertAction *messageAction;
+    UIAlertAction *messageCancelAction;
+
+    if ([[messages objectAtIndex:indexPath.row] isKindOfClass:[JiverMessage class]]) {
+        JiverMessage *message = (JiverMessage *)[messages objectAtIndex:indexPath.row];
+        
+        if ([[[message sender] guestId] isEqualToString:[Jiver getUserId]]) {
+            return;
+        }
+        
+        NSString *actionTitle = [NSString stringWithFormat:@"Start messaging with %@", [message getSenderName]];
+        messageSubMenu = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        messageAction = [UIAlertAction actionWithTitle:actionTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [Jiver startMessagingWithUserId:[[message sender] guestId]];
+        }];
+        messageCancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+        [messageSubMenu addAction:messageAction];
+        [messageSubMenu addAction:messageCancelAction];
+        
+        [self presentViewController:messageSubMenu animated:YES completion:nil];
+    }
+    else {
+        return;
+    }
+}
+```
