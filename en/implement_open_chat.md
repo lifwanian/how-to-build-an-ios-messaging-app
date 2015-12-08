@@ -102,4 +102,4 @@ Modify ```loadNextChannelList``` like this:
 
 If you run the sample project, you can see the channels which you create on the dashboard.
 
-![AppDelegate.m](./img/AppDelegate_m.png)
+![AppDelegate.m](./img/001_AppDelegate_m.png)
