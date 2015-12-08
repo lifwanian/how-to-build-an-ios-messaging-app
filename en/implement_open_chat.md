@@ -45,4 +45,25 @@ Add ```JiverChannelListQuery``` object for querying the channels.
 }
 ```
 
+Insert following code to log in and query the channels into the bottom of viewDidLoad method.
+
+```objectivec
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    //...
+
+    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    channelListQuery = [Jiver queryChannelList];
+    [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+        for (JiverChannel *channel in queryResult) {
+            [channelArray addObject:channel];
+        }
+        [self.openChatChannelListTableView reloadData];
+    } endBlock:^(NSError *error) {
+
+    }];
+}
+```
 
