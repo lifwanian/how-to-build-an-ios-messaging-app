@@ -1,4 +1,4 @@
-# Implement Transferring a Message
+# Implement Transferring a Message in Open Chat
 
 Open **OpenChatChattingViewController.m** in Xcode.
 
