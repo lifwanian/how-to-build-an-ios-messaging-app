@@ -6,6 +6,7 @@ The latest version of JIVER iOS framework is already included in the project, so
 * If you don’t have ```Podfile``` in your project, create it.
 * Insert below line into ```Podfile```.
  
+See this [link](https://jiver.gitbooks.io/ios-sdk/content/en/download_sdk.html) for detail.
 
 
 
