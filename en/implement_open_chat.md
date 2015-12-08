@@ -75,3 +75,27 @@ Querying channels supports a pagination. Let’s implement the pagination.
 
 Modify ```loadNextChannelList``` like this:
 
+```objectivec
+- (void)loadNextChannelList
+{    
+    if (![channelListQuery hasNext]) {
+        return;
+    }
+    
+    if (isLoadingChannel) {
+        return;
+    }
+    isLoadingChannel = YES;
+
+    [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+        for (JiverChannel *channel in queryResult) {
+            [channelArray addObject:channel];
+        }
+        [self.openChatChannelListTableView reloadData];
+
+        isLoadingChannel = NO;
+    } endBlock:^(NSError *error) {
+        
+    }];
+}
+```
