@@ -33,7 +33,7 @@ Initialize JIVER framework in ```application:didFinishLaunchingWithOptions:```
 
 Open the sample project and **OpenChatChannelListViewController.m** in Xcode.
 
-![OpenChatChannelListViewController.m](./img/OpenChatChannelListViewController_m_and_SharedPreference_m.png)
+![OpenChatChannelListViewController.m](./img/003_OpenChatChannelListViewController_m_and_SharedPreference_m.png)
 
 Add ```JiverChannelListQuery``` object for querying the channels.
 
