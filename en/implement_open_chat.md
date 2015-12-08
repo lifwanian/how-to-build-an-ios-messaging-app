@@ -67,4 +67,11 @@ Insert following code to log in and query the channels into the bottom of ```vie
 }
 ```
 
+**User ID** is used for identifying each user in your application. This sample project uses the device ID(IDFV) for it. If there isn’t the user which has the user ID, JIVER will create the user with the ID.
+
+Querying channels supports a pagination. Let’s implement the pagination.
+
+```loadNextChannelList``` method will be invoked when the ```UITableView``` for channels draws the last row. If you scroll to the bottom of the ```UITableView```, the next page of channels will be fetched from JIVER server and attached to the bottom of the ```UITableView```.
+
+Modify ```loadNextChannelList``` like this:
 
