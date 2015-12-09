@@ -192,7 +192,6 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
             }
         }
         NSUInteger newMsgCount = [newMessages count];
-
         if (newMsgCount > 0) {
             [messages insertObjects:newMessages atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newMsgCount)]];
             [self.messagingTableView reloadData];
@@ -211,3 +210,4 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
 }
 ```
 
+![1-on-1 Messaging](img/009_Simulator.png)
