@@ -162,3 +162,52 @@ We must manage the timestamp of the last message and first message. The timestam
 
 In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.jiver.co/ref/ios/en/Classes/JiverMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:). It means that the latest messages can be fetched from JIVER server. However, while we are fetching messages, new message can be added to the messaging channel. We have to get all message including it. So we invoke [[Jiver connectWithMessageTs:LLONG_MAX]](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. New message will be returned in ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like a real-time message.
 
+## Load previous messages
+
+Modify loadPreviosMessage method for getting previous messages.
+
+```objectivec
+- (void) loadPreviousMessages {
+    if (isLoadingMessage) {
+        return;
+    }
+    isLoadingMessage = YES;
+    
+    [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:firstMessageTimestamp andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+        NSMutableArray *newMessages = [[NSMutableArray alloc] init];
+        for (JiverMessage *message in queryResult) {
+            if ([message isPast]) {
+                [newMessages insertObject:message atIndex:0];
+            }
+            else {
+                [newMessages addObject:message];
+            }
+            
+            if (lastMessageTimestamp < [message getMessageTimestamp]) {
+                lastMessageTimestamp = [message getMessageTimestamp];
+            }
+            
+            if (firstMessageTimestamp > [message getMessageTimestamp]) {
+                firstMessageTimestamp = [message getMessageTimestamp];
+            }
+        }
+        NSUInteger newMsgCount = [newMessages count];
+
+        if (newMsgCount > 0) {
+            [messages insertObjects:newMessages atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newMsgCount)]];
+            [self.messagingTableView reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if ([newMessages count] > 0) {
+                    [self.messagingTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([newMessages count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                }
+                isLoadingMessage = NO;
+            });
+        }
+        
+        [Jiver connectWithMessageTs:LLONG_MAX];
+    } endBlock:^(NSError *error) {
+        
+    }];
+}
+```
+
