@@ -210,6 +210,79 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
 }
 ```
 
+To send a message, modify ```clickSendMessageButton:``` method. This method is invoked by clicking “Send” button. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends ```message``` immediately.
+
+```objectivec
+- (IBAction)clickSendMessageButton:(id)sender {
+    NSString *message = [self.messageTextField text];
+    [self.messageTextField setText:@""];
+    [Jiver sendMessage:message];
+}
+```
+
+To send an image, modify ```clickSendFileButton:``` method. This method is invoked by clickng “File” button.
+
+```objectivec
+- (IBAction)clickSendFileButton:(id)sender {
+    UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
+    mediaUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    NSMutableArray *mediaTypes = [[NSMutableArray alloc] initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, nil];
+    mediaUI.mediaTypes = mediaTypes;
+    [mediaUI setDelegate:self];
+    openImagePicker = YES;
+    [self presentViewController:mediaUI animated:YES completion:nil];
+}
+```
+
+We use UIImagePickerController to pick an image for sending, modify following method to this file. [Jiver uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:) method uploads ```imageFileData``` to JIVER server. This method returns [JiverFileInfo](http://docs.jiver.co/ref/ios/en/Classes/JiverFileInfo.html) object and you can send this object through [Jiver sendFile:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendFile:).
+
+```objectivec
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    __block NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
+    __block UIImage *originalImage, *editedImage, *imageToUse;
+    __block NSURL *imagePath;
+    __block NSString *imageName;
+    
+//    [self setIndicatorHidden:NO];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
+            editedImage = (UIImage *) [info objectForKey:
+                                       UIImagePickerControllerEditedImage];
+            originalImage = (UIImage *) [info objectForKey:
+                                         UIImagePickerControllerOriginalImage];
+            
+            if (originalImage) {
+                imageToUse = originalImage;
+            } else {
+                imageToUse = editedImage;
+            }
+            
+            NSData *imageFileData = UIImagePNGRepresentation(imageToUse);
+            imagePath = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
+            imageName = [imagePath lastPathComponent];
+            
+            [Jiver uploadFile:imageFileData type:@"image/jpg" hasSizeOfFile:[imageFileData length] withCustomField:@"" uploadBlock:^(JiverFileInfo *fileInfo, NSError *error) {
+                openImagePicker = NO;
+                [Jiver sendFile:fileInfo];
+//                [self setIndicatorHidden:YES];
+
+            }];
+        }
+        else if (CFStringCompare ((CFStringRef) mediaType, kUTTypeVideo, 0) == kCFCompareEqualTo) {
+            NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+            
+            NSData *videoFileData = [NSData dataWithContentsOfURL:videoURL];
+            
+            [Jiver uploadFile:videoFileData type:@"video/mov" hasSizeOfFile:[videoFileData length] withCustomField:@"" uploadBlock:^(JiverFileInfo *fileInfo, NSError *error) {
+                openImagePicker = NO;
+                [Jiver sendFile:fileInfo];
+//                [self setIndicatorHidden:YES];
+            }];
+        }
+    }];
+}
+```
 
 
 ![1-on-1 Messaging](img/009_Simulator.png)
