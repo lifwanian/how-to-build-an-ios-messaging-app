@@ -164,7 +164,7 @@ In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.j
 
 ## Load previous messages
 
-Modify loadPreviosMessage method for getting previous messages.
+Modify ```loadPreviosMessage``` method for getting previous messages.
 
 ```objectivec
 - (void) loadPreviousMessages {
