@@ -284,6 +284,16 @@ We use UIImagePickerController to pick an image for sending, modify following me
     }];
 }
 ```
+## Implement Typing Indicator
+
+Messaging supports a typing indicator. The typing indicator shows who is typing and how many people are typing now.
+
+
+
+
+## Implement Unread Count on Each Message
+
+
 
 
 ![1-on-1 Messaging](img/009_Simulator.png)
