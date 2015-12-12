@@ -276,7 +276,7 @@ To send an image, modify ```clickSendFileButton:``` method. This method is invok
 - (IBAction)clickSendFileButton:(id)sender {
     UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
     mediaUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    NSMutableArray *mediaTypes = [[NSMutableArray alloc] initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, nil];
+    NSMutableArray *mediaTypes = [[NSMutableArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
     mediaUI.mediaTypes = mediaTypes;
     [mediaUI setDelegate:self];
     openImagePicker = YES;
