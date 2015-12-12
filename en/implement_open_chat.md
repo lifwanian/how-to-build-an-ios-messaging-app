@@ -267,6 +267,17 @@ To send a message, modify ```clickSendMessageButton:``` method. This method is i
     }
     scrollLocked = NO;
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSString *message = [self.messageTextField text];
+    if ([message length] > 0) {
+        [self.messageTextField setText:@""];
+        [Jiver sendMessage:message];
+    }
+    
+    return YES;
+}
 ```
 
 To send an image, modify ```clickSendFileButton:``` method. This method is invoked by clickng “File” button.
