@@ -96,13 +96,12 @@ Modify ```loadNextChannelList``` like this:
         return;
     }
     isLoadingChannel = YES;
-
+    
     [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
         for (JiverChannel *channel in queryResult) {
             [channelArray addObject:channel];
         }
         [self.openChatChannelListTableView reloadData];
-
         isLoadingChannel = NO;
     } endBlock:^(NSError *error) {
         
