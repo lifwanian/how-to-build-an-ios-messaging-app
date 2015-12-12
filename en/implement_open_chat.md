@@ -117,7 +117,7 @@ If you run the sample project, you can see the channels which you created on the
 
 Open **OpenChatChattingViewController.m** in Xcode.
 
-![Open OpenChatChattingViewController.m](img/005_OpenChatChattingViewController_m.png)
+![Open OpenChatChattingViewController.m](img/004_OpenChatChattingViewController_m.png)
 
 The UI for chat is consist of ```UITableView``` for messages, ```UIButton``` for sending an image, ```UITextField``` for entering a message and ```UIButton``` for sending a message. 
 
