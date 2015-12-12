@@ -109,7 +109,7 @@ Modify ```loadNextChannelList``` like this:
 }
 ```
 
-If you run the sample project, you can see the channels which you create on the dashboard.
+If you run the sample project, you can see the channels which you created on the dashboard.
 
 ![Channel List](./img/007_Screenshot.png)
 
