@@ -109,6 +109,47 @@ Modify ```loadNextChannelList``` like this:
 }
 ```
 
+## Channel Search
+
+JIVER supports channel searching. The sample project already includes UISearchBar for it.
+
+Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBarSearchButtonClicked:) for querying with a keyword and [searchBarCancelButtonClicked:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBarCancelButtonClicked:) for canceling the result.
+
+```objectivec
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [channelArray removeAllObjects];
+    [searchBar setText:@""];
+    channelListQuery = [Jiver queryChannelList];
+    [channelListQuery setQuery:@""];
+    [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+        for (JiverChannel *channel in queryResult) {
+            [channelArray addObject:channel];
+        }
+        [self.openChatChannelListTableView reloadData];
+    } endBlock:^(NSError *error) {
+        
+    }];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [channelArray removeAllObjects];
+    channelListQuery = [Jiver queryChannelList];
+    [channelListQuery setQuery:[searchBar text]];
+    [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+        for (JiverChannel *channel in queryResult) {
+            [channelArray addObject:channel];
+        }
+        [self.openChatChannelListTableView reloadData];
+    } endBlock:^(NSError *error) {
+        
+    }];
+}
+```
+
+
+
 If you run the sample project, you can see the channels which you created on the dashboard.
 
 ![Channel List](./img/003_Screenshot.png)
