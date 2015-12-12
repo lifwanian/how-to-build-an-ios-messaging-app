@@ -150,7 +150,7 @@ Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/d
 
 If you run the sample project, you can see the channels which you created on the dashboard.
 
-![Channel List](./img/003_Screenshot.png)
+![Channel List](./img/003_Screenshot.png) ![Channel List Querying](./img/005_Screenshot.png)
 
 ## Transfer a Message in Open Chat
 
