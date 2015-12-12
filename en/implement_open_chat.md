@@ -294,7 +294,6 @@ We use [UIImagePickerController](https://developer.apple.com/library/ios/documen
     __block NSURL *imagePath;
     __block NSString *imageName;
     
-//    [self setIndicatorHidden:NO];
     [picker dismissViewControllerAnimated:YES completion:^{
         if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
             editedImage = (UIImage *) [info objectForKey:
@@ -315,19 +314,6 @@ We use [UIImagePickerController](https://developer.apple.com/library/ios/documen
             [Jiver uploadFile:imageFileData type:@"image/jpg" hasSizeOfFile:[imageFileData length] withCustomField:@"" uploadBlock:^(JiverFileInfo *fileInfo, NSError *error) {
                 openImagePicker = NO;
                 [Jiver sendFile:fileInfo];
-//                [self setIndicatorHidden:YES];
-
-            }];
-        }
-        else if (CFStringCompare ((CFStringRef) mediaType, kUTTypeVideo, 0) == kCFCompareEqualTo) {
-            NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
-            
-            NSData *videoFileData = [NSData dataWithContentsOfURL:videoURL];
-            
-            [Jiver uploadFile:videoFileData type:@"video/mov" hasSizeOfFile:[videoFileData length] withCustomField:@"" uploadBlock:^(JiverFileInfo *fileInfo, NSError *error) {
-                openImagePicker = NO;
-                [Jiver sendFile:fileInfo];
-//                [self setIndicatorHidden:YES];
             }];
         }
     }];
