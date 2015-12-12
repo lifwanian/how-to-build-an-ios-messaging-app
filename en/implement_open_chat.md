@@ -28,7 +28,7 @@ Initialize JIVER framework in ```application:didFinishLaunchingWithOptions:```
     return YES;
 }
 ```
-
+ 
 ## Implement channel loading
 
 Open the sample project and **OpenChatChannelListViewController.m** in Xcode.
