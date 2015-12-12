@@ -121,6 +121,130 @@ Open **OpenChatChattingViewController.m** in Xcode.
 
 The UI for chat is consist of ```UITableView``` for messages, ```UIButton``` for sending an image, ```UITextField``` for entering a message and ```UIButton``` for sending a message. 
 
+Modify ```startChattingWithPreviousMessage:``` method. This method is used when the chat starts. If you want to get previous messages when started, pass ```YES```. Otherwise, pass ```NO```.
+
+```objectivec
+- (void)startChattingWithPreviousMessage:(BOOL)tf
+{
+    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    [Jiver joinChannel:[currentChannel url]];
+    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+        
+    } errorBlock:^(NSInteger code) {
+        
+    } channelLeftBlock:^(JiverChannel *channel) {
+        
+    } messageReceivedBlock:^(JiverMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+        
+    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+        if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
+            lastMessageTimestamp = [fileLink getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [fileLink getMessageTimestamp]) {
+            firstMessageTimestamp = [fileLink getMessageTimestamp];
+        }
+        
+        if ([fileLink isPast]) {
+            [messages insertObject:fileLink atIndex:0];
+        }
+        else {
+            [messages addObject:fileLink];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+        UIStoryboard *storyboard = [self storyboard];
+        MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
+        [vc setMessagingChannel:channel];
+        [vc setDelegate:self];
+        [self presentViewController:vc animated:YES completion:nil];
+    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+        
+    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingEndedBlock:^{
+        
+    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingHiddenBlock:^{
+        
+    } readReceivedBlock:^(JiverReadStatus *status) {
+        
+    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+        
+    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+        
+    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+        
+    } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
+        
+    }];
+    
+    if (tf) {
+        [[Jiver queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+            for (JiverMessage *message in queryResult) {
+                if ([message isPast]) {
+                    [messages insertObject:message atIndex:0];
+                }
+                else {
+                    [messages addObject:message];
+                }
+                
+                if (lastMessageTimestamp < [message getMessageTimestamp]) {
+                    lastMessageTimestamp = [message getMessageTimestamp];
+                }
+                
+                if (firstMessageTimestamp > [message getMessageTimestamp]) {
+                    firstMessageTimestamp = [message getMessageTimestamp];
+                }
+                
+            }
+            [self scrollToBottomWithReloading:YES animated:NO];
+            scrollLocked = NO;
+            [Jiver connectWithMessageTs:LLONG_MAX];
+        } endBlock:^(NSError *error) {
+            
+        }];
+    }
+    else {
+        [Jiver connect];
+    }
+}
+```
+
+
 Insert following code to log in and query the channel list into the bottom of ```viewDidLoad``` method.
 
 ```objectivec
