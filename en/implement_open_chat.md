@@ -38,7 +38,7 @@ Open the sample project and **OpenChatChannelListViewController.m** in Xcode.
 Add [JiverChannelListQuery](http://docs.jiver.co/ref/ios/en/Classes/JiverChannelListQuery.html) object for querying the channels.
 
 ```objectivec
-@interface OpenChatChannelListViewController ()<UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate> {
+@interface OpenChatChannelListViewController ()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     NSMutableArray *channelArray;
     BOOL isLoadingChannel;
     JiverChannelListQuery *channelListQuery;
@@ -52,7 +52,17 @@ Insert following code to log in and query the channels into the bottom of ```vie
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    //...
+    isLoadingChannel = NO;
+    
+    [self.openChatChannelListTableView setContentInset:UIEdgeInsetsMake(108, 0, 48, 0)];
+    [self.openChatChannelListTableView setDelegate:self];
+    [self.openChatChannelListTableView setDataSource:self];
+    
+    [self.channelSearchBar setDelegate:self];
+    
+    channelArray = [[NSMutableArray alloc] init];
+    
+    [self.openChatChannelListLoadingIndicator setHidden:YES];
 
     [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
     channelListQuery = [Jiver queryChannelList];
