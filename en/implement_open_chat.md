@@ -256,7 +256,7 @@ Insert following code to start the open chat into the bottom of ```viewDidLoad``
 }
 ```
 
-To send a message, modify ```clickSendMessageButton:```, ```textFieldShouldReturn:``` and ```sendMessage``` method. This method is invoked by clicking “Send” button. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends ```message``` immediately.
+To send a message, modify ```sendMessage``` method. This method is invoked by clicking “Send” button or pressing return key. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends ```message``` immediately.
 
 ```objectivec
 - (void) sendMessage
@@ -267,17 +267,6 @@ To send a message, modify ```clickSendMessageButton:```, ```textFieldShouldRetur
         [Jiver sendMessage:message];
     }
     scrollLocked = NO;
-}
-
-- (IBAction)clickSendMessageButton:(id)sender {
-    [self sendMessage];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self sendMessage];
-    
-    return YES;
 }
 ```
 
