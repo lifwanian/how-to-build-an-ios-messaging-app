@@ -261,8 +261,11 @@ To send a message, modify ```clickSendMessageButton:``` method. This method is i
 ```objectivec
 - (IBAction)clickSendMessageButton:(id)sender {
     NSString *message = [self.messageTextField text];
-    [self.messageTextField setText:@""];
-    [Jiver sendMessage:message];
+    if ([message length] > 0) {
+        [self.messageTextField setText:@""];
+        [Jiver sendMessage:message];
+    }
+    scrollLocked = NO;
 }
 ```
 
