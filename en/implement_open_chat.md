@@ -359,6 +359,66 @@ We use [UIImagePickerController](https://developer.apple.com/library/ios/documen
 }
 ```
 
+## Load Previous Messages
+
+To see previous messages in the channel, implement ```loadPreviousMessages``` method.
+
+```objectivec
+- (void) loadPreviousMessages {
+    // See 'How to build an iOS messaging app'
+    if (isLoadingMessage) {
+        return;
+    }
+    isLoadingMessage = YES;
+
+    [self.prevMessageLoadingIndicator setHidden:NO];
+    [self.prevMessageLoadingIndicator startAnimating];
+    [[Jiver queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:firstMessageTimestamp andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+        NSMutableArray *newMessages = [[NSMutableArray alloc] init];
+        for (JiverMessage *message in queryResult) {
+            if ([message isPast]) {
+                [newMessages insertObject:message atIndex:0];
+            }
+            else {
+                [newMessages addObject:message];
+            }
+            
+            if (lastMessageTimestamp < [message getMessageTimestamp]) {
+                lastMessageTimestamp = [message getMessageTimestamp];
+            }
+            
+            if (firstMessageTimestamp > [message getMessageTimestamp]) {
+                firstMessageTimestamp = [message getMessageTimestamp];
+            }
+        }
+        NSUInteger newMsgCount = [newMessages count];
+        
+        if (newMsgCount > 0) {
+            [messages insertObjects:newMessages atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newMsgCount)]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.openChatChattingTableView reloadData];
+                if ([newMessages count] > 0) {
+                    [self.openChatChattingTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([newMessages count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                }
+                isLoadingMessage = NO;
+                [self.prevMessageLoadingIndicator setHidden:YES];
+                [self.prevMessageLoadingIndicator stopAnimating];
+            });
+        }
+        else {
+            isLoadingMessage = NO;
+            [self.prevMessageLoadingIndicator setHidden:YES];
+            [self.prevMessageLoadingIndicator stopAnimating];
+        }
+    } endBlock:^(NSError *error) {
+        isLoadingMessage = NO;
+        [self.prevMessageLoadingIndicator setHidden:YES];
+        [self.prevMessageLoadingIndicator stopAnimating];
+    }];
+}
+```
+
+
 Build the project, join a channel and send a message. You need two devices or one device and iOS simulator for testing. If you don’t have a real device, you can use **OPERATIONS** on **JIVER Dashboard** to chat with an iOS simulator.
  
 ![Run the project](img/006_Screenshot.png)
