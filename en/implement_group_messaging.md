@@ -15,3 +15,20 @@ You can select users who you want to invite in Messaging **Tab > Invite > Select
 
 
 ![MessagingInviteSelectUserViewController.m](img/013_MessagingInviteSelectUserViewController_m.png)
+
+
+You have to modify ```inviteUsers:``` method in order to invite multiple users.
+
+```objectivec
+- (IBAction)inviteUsers:(id)sender {
+    NSArray * indexPaths = [self.messagingInviteSelectUserTableView indexPathsForSelectedRows];
+    NSMutableArray<NSString *> *userIds = [[NSMutableArray alloc] init];
+    for (NSIndexPath *indexPath in indexPaths) {
+        [userIds addObject:[[userArray objectAtIndex:indexPath.row] guestId]];
+    }
+    
+    if ([userIds count] > 0) {
+        [Jiver startMessagingWithUserIds:userIds];
+    }
+}
+```
