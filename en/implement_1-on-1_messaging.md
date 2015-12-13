@@ -495,6 +495,8 @@ When the message is entering in UITextField, send the command to notify typing. 
 
 ### Receive Typing Status
 
+You can receieve the typing status of other users in the same channel in callback blocks. ```[Jiver setEventHandlerConnectBlock:...``` includes the callbacks for it. 
+
 ```objectivec
     //...
     } typeStartReceivedBlock:^(JiverTypeStatus *status) {
@@ -506,6 +508,8 @@ When the message is entering in UITextField, send the command to notify typing. 
     }
     //...
 ```
+
+
 
 
 ## Implement Unread Count on Each Message
