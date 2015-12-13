@@ -633,7 +633,8 @@ When opponents send you mark as read command, it is returned in ```readReceivedB
     } allMessagingHiddenBlock:^{
         // ...
     } readReceivedBlock:^(JiverReadStatus *status) {
-        // ...
+        [self setReadStatus:[[status user] guestId] andTimestamp:[status timestamp]];
+        [self.messagingTableView reloadData];
     } typeStartReceivedBlock:^(JiverTypeStatus *status) {
         // ...
     } typeEndReceivedBlock:^(JiverTypeStatus *status) {
