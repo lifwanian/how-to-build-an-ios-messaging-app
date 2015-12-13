@@ -669,6 +669,32 @@ If you received the mark as read command, update read status of the current chan
 
 When the current channel is updated by ```registerNotificationHandlerMessagingChannelUpdatedBlock:mentionUpdatedBlock:```, you have to update the read status of the channel.
 
+```objectivec
+- (void) updateMessagingChannel:(JiverMessagingChannel *)channel
+{
+    [self.navigationBarTitle setTitle:[MyUtils generateMessagingTitle:currentChannel]];
+    
+    NSMutableDictionary *newReadStatus = [[NSMutableDictionary alloc] init];
+    for (JiverMemberInMessagingChannel *member in [channel members]) {
+        NSNumber *currentStatus = [readStatus objectForKey:[member guestId]];
+        if (currentStatus == nil) {
+            currentStatus = [NSNumber numberWithLongLong:0];
+        }
+        [newReadStatus setObject:[NSNumber numberWithLongLong:MAX([currentStatus longLongValue], [channel getLastReadMillis:[member guestId]])] forKey:[member guestId]];
+    }
+    
+    if (readStatus == nil) {
+        readStatus = [[NSMutableDictionary alloc] init];
+    }
+    [readStatus removeAllObjects];
+    for (NSString *key in newReadStatus) {
+        id value = [newReadStatus objectForKey:key];
+        [readStatus setObject:value forKey:key];
+    }
+    [self.messagingTableView reloadData];
+}
+```
+
 
 
 
