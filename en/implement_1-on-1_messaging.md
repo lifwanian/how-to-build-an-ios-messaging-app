@@ -509,7 +509,7 @@ You can receieve the typing status of other users in the same channel in callbac
     //...
 ```
 
-We always consider the network problem. The command to notify typing end can be lost, so you need to implement a timer for dealing with it.
+We always consider the network problem. The command to notify typing end can be lost, so you need to implement a timer for dealing with it. The timer will remove the indicator after 10 seconds.
 
 ```objectivec
 - (void)startTimer
