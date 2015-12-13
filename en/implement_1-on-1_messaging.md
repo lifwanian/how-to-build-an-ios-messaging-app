@@ -496,6 +496,7 @@ When the message is entering in UITextField, send the command to notify typing. 
 ### Receive Typing Status
 
 ```objectivec
+    //...
     } typeStartReceivedBlock:^(JiverTypeStatus *status) {
         [self setTypeStatus:[[status user] guestId] andTimestamp:[status timestamp]];
         [self showTyping];
@@ -503,6 +504,7 @@ When the message is entering in UITextField, send the command to notify typing. 
         [self setTypeStatus:[[status user] guestId] andTimestamp:0];
         [self showTyping];
     }
+    //...
 ```
 
 
