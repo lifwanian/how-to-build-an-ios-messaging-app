@@ -57,16 +57,9 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
     // ...
     
     [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    [Jiver registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
-        if ([Jiver getCurrentChannel] != nil && [[Jiver getCurrentChannel] channelId] == [channel getId]) {
-            [self updateMessagingChannel:channel];
-        }
-    }
-    mentionUpdatedBlock:^(JiverMention *mention) {
-       
-    }];
+    [Jiver joinChannel:[currentChannel url]];
     [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
-        [Jiver markAsRead];
+        
     } errorBlock:^(NSInteger code) {
         
     } channelLeftBlock:^(JiverChannel *channel) {
@@ -87,26 +80,8 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
             [messages addObject:message];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-        
-        [Jiver markAsRead];
     } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
-        if (lastMessageTimestamp < [message getMessageTimestamp]) {
-            lastMessageTimestamp = [message getMessageTimestamp];
-        }
         
-        if (firstMessageTimestamp > [message getMessageTimestamp]) {
-            firstMessageTimestamp = [message getMessageTimestamp];
-        }
-        
-        if ([message isPast]) {
-            [messages insertObject:message atIndex:0];
-        }
-        else {
-            [messages addObject:message];
-        }
-        [self scrollToBottomWithReloading:YES animated:NO];
-        
-        [Jiver markAsRead];
     } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
@@ -123,11 +98,13 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
             [messages addObject:message];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-        
-        [Jiver markAsRead];
     } fileReceivedBlock:^(JiverFileLink *fileLink) {
         if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
             lastMessageTimestamp = [fileLink getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [fileLink getMessageTimestamp]) {
+            firstMessageTimestamp = [fileLink getMessageTimestamp];
         }
         
         if ([fileLink isPast]) {
@@ -137,39 +114,14 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
             [messages addObject:fileLink];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-        
-        [Jiver markAsRead];
     } messagingStartedBlock:^(JiverMessagingChannel *channel) {
-        currentChannel = channel;
-        [self updateMessagingChannel:channel];
-        
-        [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
-            for (JiverMessage *message in queryResult) {
-                if ([message isPast]) {
-                    [messages insertObject:message atIndex:0];
-                }
-                else {
-                    [messages addObject:message];
-                }
-                
-                if (lastMessageTimestamp < [message getMessageTimestamp]) {
-                    lastMessageTimestamp = [message getMessageTimestamp];
-                }
-                
-                if (firstMessageTimestamp > [message getMessageTimestamp]) {
-                    firstMessageTimestamp = [message getMessageTimestamp];
-                }
-            }
-            [self scrollToBottomWithReloading:YES animated:NO];
-            [Jiver joinChannel:[currentChannel getUrl]];
-            scrollLocked = NO;
-            [Jiver connectWithMessageTs:LLONG_MAX];
-        } endBlock:^(NSError *error) {
-            
-        }];
+        UIStoryboard *storyboard = [self storyboard];
+        MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
+        [vc setMessagingChannel:channel];
+        [vc setDelegate:self];
+        [self presentViewController:vc animated:YES completion:nil];
     } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
-        currentChannel = channel;
-        [self updateMessagingChannel:channel];
+        
     } messagingEndedBlock:^(JiverMessagingChannel *channel) {
         
     } allMessagingEndedBlock:^{
@@ -179,20 +131,16 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
     } allMessagingHiddenBlock:^{
         
     } readReceivedBlock:^(JiverReadStatus *status) {
-        [self setReadStatus:[[status user] guestId] andTimestamp:[status timestamp]];
-        [self.messagingTableView reloadData];
+        
     } typeStartReceivedBlock:^(JiverTypeStatus *status) {
-        [self setTypeStatus:[[status user] guestId] andTimestamp:[status timestamp]];
-        [self showTyping];
+        
     } typeEndReceivedBlock:^(JiverTypeStatus *status) {
-        [self setTypeStatus:[[status user] guestId] andTimestamp:0];
-        [self showTyping];
+        
     } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
         
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         
     }];
-    [Jiver joinMessagingWithChannelUrl:[currentChannel getUrl]];
 }
 ```
 
