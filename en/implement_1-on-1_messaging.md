@@ -292,11 +292,6 @@ Modify ```viewDidLoad``` method for initialzation a messaging.
 }
 ```
 
-
-
-
-
-
 You have to add some codes for getting previous messages. Write the following code below ```[Jiver setEventHandlerConnectBlock ...]```.
 
 ```objectivec
