@@ -546,6 +546,9 @@ We always consider the network problem. The command to notify typing end can be 
     [self startTimer];
 }
 ```
+
+The typing indicator will be on the bottom of the message table view.
+
 ![Typing Indicator](img/008_Screenshot.png)
 
 ## Implement Unread Count on Each Message
