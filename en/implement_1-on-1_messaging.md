@@ -43,7 +43,7 @@ Implement [tableView:didSelectRowAtIndexPath:](https://developer.apple.com/libra
 }
 ```
 
-You can see UIAlertController when you click other's message in the open chat like this:
+You can see ```UIAlertController``` when you click other's message in the open chat like this:
 
 ![UIAlertController for starting messaging](img/007_Screenshot.png)
 
