@@ -399,7 +399,7 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
 ```
 ## Transfer a Message in Messaging
 
-To send a message, modify ```sendMessage:``` method. This method is invoked by clicking “Send” button. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends ```message``` immediately.
+To send a message, modify ```sendMessage:``` method. This method is invoked by clicking “Send” button or pressing return key. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends ```message``` immediately.
 
 ```objectivec
 - (void) sendMessage
