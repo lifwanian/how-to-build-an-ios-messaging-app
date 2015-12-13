@@ -667,7 +667,7 @@ If you received the mark as read command, update read status of the current chan
 }
 ```
 
-When the current channel is updated by ```registerNotificationHandlerMessagingChannelUpdatedBlock:mentionUpdatedBlock:```, you have to update the read status of the channel.
+When the current channel is updated by ```registerNotificationHandlerMessagingChannelUpdatedBlock:mentionUpdatedBlock:```, you have to update the read status of the channel. The following method is invoked in ```registerNotificationHandlerMessagingChannelUpdatedBlock:``` callback.
 
 ```objectivec
 - (void) updateMessagingChannel:(JiverMessagingChannel *)channel
