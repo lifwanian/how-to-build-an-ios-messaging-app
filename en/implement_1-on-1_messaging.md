@@ -10,7 +10,7 @@ Open **OpenChatChattingViewController.m** in Xcode.
 
 ![OpenChatChattingViewController.m](img/004_OpenChatChattingViewController_m.png)
 
-Implement ```tableView:didSelectRowAtIndexPath:``` for getting the user ID of the message's sender.
+Implement [tableView:didSelectRowAtIndexPath:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDelegate_Protocol/#//apple_ref/occ/intfm/UITableViewDelegate/tableView:didSelectRowAtIndexPath:) for getting the user ID of the message's sender.
 
 ```objectivec
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
