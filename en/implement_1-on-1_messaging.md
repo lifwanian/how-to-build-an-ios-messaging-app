@@ -555,8 +555,66 @@ The typing indicator will be on the bottom of the message table view.
 
 ### Send Mark As Read
 
+To display the unread count on opponents, you have to send mark as read command whenever you received messages.
 
-
+```objectivec
+[Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+        [Jiver markAsRead];
+    } errorBlock:^(NSInteger code) {
+        
+    } channelLeftBlock:^(JiverChannel *channel) {
+        
+    } messageReceivedBlock:^(JiverMessage *message) {
+        // ...
+        [Jiver markAsRead];
+    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+        
+        [Jiver markAsRead];
+    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+        // ...
+        [Jiver markAsRead];
+    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+        // ...
+        [Jiver markAsRead];
+    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+        // ...
+    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+        // ...
+    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+        // ...
+    } allMessagingEndedBlock:^{
+        // ...
+    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+        // ...
+    } allMessagingHiddenBlock:^{
+        // ...
+    } readReceivedBlock:^(JiverReadStatus *status) {
+        // ...
+    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+        // ...
+    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+        // ...
+    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+        // ...
+    } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
+        // ...
+    }];
+```
 
 ### Display Unread Count
 
