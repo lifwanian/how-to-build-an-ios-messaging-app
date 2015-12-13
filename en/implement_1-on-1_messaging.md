@@ -335,34 +335,6 @@ Modify ```viewDidLoad``` method for initialzation a messaging.
 }
 ```
 
-You have to add some codes for getting previous messages. Write the following code below ```[Jiver setEventHandlerConnectBlock ...]```.
-
-```objectivec
-    [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
-        for (JiverMessage *message in queryResult) {
-            if ([message isPast]) {
-                [messages insertObject:message atIndex:0];
-            }
-            else {
-                [messages addObject:message];
-            }
-            
-            if (lastMessageTimestamp < [message getMessageTimestamp]) {
-                lastMessageTimestamp = [message getMessageTimestamp];
-            }
-            
-            if (firstMessageTimestamp > [message getMessageTimestamp]) {
-                firstMessageTimestamp = [message getMessageTimestamp];
-            }
-        }
-        [self scrollToBottomWithReloading:YES animated:NO];
-        
-        [Jiver connectWithMessageTs:LLONG_MAX];
-    } endBlock:^(NSError *error) {
-        
-    }];
-```
-
 We must manage the timestamp of the last message and first message. The timestamp of the last message will be used for loading next messages and the timestamp of the first message will be used for loading previous messages.
 
 In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.jiver.co/ref/ios/en/Classes/JiverMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:). It means that the latest messages can be fetched from JIVER server. However, while we are fetching messages, new message can be added to the messaging channel. We have to get all message including it. So we invoke [[Jiver connectWithMessageTs:LLONG_MAX]](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. New message will be returned in ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like a real-time message.
