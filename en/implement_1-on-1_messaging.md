@@ -402,10 +402,14 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
 To send a message, modify ```clickSendMessageButton:``` method. This method is invoked by clicking “Send” button. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends ```message``` immediately.
 
 ```objectivec
-- (IBAction)clickSendMessageButton:(id)sender {
+- (void) sendMessage
+{
     NSString *message = [self.messageTextField text];
-    [self.messageTextField setText:@""];
-    [Jiver sendMessage:message];
+    if ([message length] > 0) {
+        [self.messageTextField setText:@""];
+        [Jiver sendMessage:message];
+    }
+    scrollLocked = NO;
 }
 ```
 
