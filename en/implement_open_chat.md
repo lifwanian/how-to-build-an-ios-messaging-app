@@ -12,7 +12,7 @@ You have to prepare channels for open chat in your application in order to imple
 6. Click **CREATE** button.
 
  
-## Initialize JIVER framework
+## Initialize JIVER Framework
 
 Open the sample project and **AppDelegate.m** in Xcode.
 
