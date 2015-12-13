@@ -568,22 +568,7 @@ To display the unread count on opponents, you have to send mark as read command 
         // ...
         [Jiver markAsRead];
     } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
-        if (lastMessageTimestamp < [message getMessageTimestamp]) {
-            lastMessageTimestamp = [message getMessageTimestamp];
-        }
-        
-        if (firstMessageTimestamp > [message getMessageTimestamp]) {
-            firstMessageTimestamp = [message getMessageTimestamp];
-        }
-        
-        if ([message isPast]) {
-            [messages insertObject:message atIndex:0];
-        }
-        else {
-            [messages addObject:message];
-        }
-        [self scrollToBottomWithReloading:YES animated:NO];
-        
+        // ...
         [Jiver markAsRead];
     } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
         // ...
