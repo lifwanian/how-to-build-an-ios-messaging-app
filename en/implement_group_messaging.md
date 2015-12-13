@@ -9,3 +9,5 @@ You can select users who you want to invite in Messaging Tab > Invite > Select C
 
 ![Messaging Tab](img/010_Screenshot.png) ![Select Channel](img/011_Screenshot.png) ![Select User](img/012_Screenshot.png)
 
+
+
