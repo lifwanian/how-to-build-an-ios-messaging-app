@@ -350,6 +350,8 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
     }
     isLoadingMessage = YES;
     
+    [self.prevMessageLoadingIndicator setHidden:NO];
+    [self.prevMessageLoadingIndicator startAnimating];
     [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:firstMessageTimestamp andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
         for (JiverMessage *message in queryResult) {
@@ -369,20 +371,29 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
             }
         }
         NSUInteger newMsgCount = [newMessages count];
+
         if (newMsgCount > 0) {
             [messages insertObjects:newMessages atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newMsgCount)]];
-            [self.messagingTableView reloadData];
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.messagingTableView reloadData];
                 if ([newMessages count] > 0) {
                     [self.messagingTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([newMessages count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 }
                 isLoadingMessage = NO;
+                [self.prevMessageLoadingIndicator setHidden:YES];
+                [self.prevMessageLoadingIndicator stopAnimating];
             });
         }
-        
-        [Jiver connectWithMessageTs:LLONG_MAX];
+        else {
+            isLoadingMessage = NO;
+            [self.prevMessageLoadingIndicator setHidden:YES];
+            [self.prevMessageLoadingIndicator stopAnimating];
+        }
     } endBlock:^(NSError *error) {
-        
+        isLoadingMessage = NO;
+        [self.prevMessageLoadingIndicator setHidden:YES];
+        [self.prevMessageLoadingIndicator stopAnimating];
     }];
 }
 ```
