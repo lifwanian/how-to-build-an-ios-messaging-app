@@ -12,7 +12,74 @@ You can select users who you want to invite in Messaging **Tab > Invite > Select
 
 ## Invite Users
 
+The callback block is required to get the messaging channel after inviting users.
 
+```objectivec
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    isLoadingUser = NO;
+    
+    [self.messagingInviteSelectUserTableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
+    [self.messagingInviteSelectUserTableView setDelegate:self];
+    [self.messagingInviteSelectUserTableView setDataSource:self];
+    
+    userArray = [[NSMutableArray alloc] init];
+    
+    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    memberListQuery = [Jiver queryMemberListInChannel:[selectedChannel url]];
+    [memberListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+        for (JiverMember *user in queryResult) {
+            [userArray addObject:user];
+        }
+        [self.messagingInviteSelectUserTableView reloadData];
+    } endBlock:^(NSError *error) {
+
+    }];
+    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+        
+    } errorBlock:^(NSInteger code) {
+        
+    } channelLeftBlock:^(JiverChannel *channel) {
+        
+    } messageReceivedBlock:^(JiverMessage *message) {
+        
+    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+        
+    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+        
+    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+        
+    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+        UIStoryboard *storyboard = [self storyboard];
+        MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
+        [vc setMessagingChannel:channel];
+        [vc setDelegate:self];
+        [self presentViewController:vc animated:YES completion:nil];
+    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+        
+    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingEndedBlock:^{
+        
+    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingHiddenBlock:^{
+        
+    } readReceivedBlock:^(JiverReadStatus *status) {
+        
+    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+        
+    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+        
+    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+        
+    } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
+        
+    }];
+}
+```
 
 ![MessagingInviteSelectUserViewController.m](img/013_MessagingInviteSelectUserViewController_m.png)
 
