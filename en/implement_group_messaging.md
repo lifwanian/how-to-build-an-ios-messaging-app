@@ -12,4 +12,6 @@ You can select users who you want to invite in Messaging **Tab > Invite > Select
 
 ## Invite Users
 
+
+
 ![MessagingInviteSelectUserViewController.m](img/013_MessagingInviteSelectUserViewController_m.png)
