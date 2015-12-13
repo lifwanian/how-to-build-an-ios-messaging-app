@@ -32,3 +32,4 @@ You have to modify ```inviteUsers:``` method in order to invite multiple users.
     }
 }
 ```
+
