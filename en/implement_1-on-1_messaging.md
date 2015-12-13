@@ -146,7 +146,7 @@ These codes get a view controller for messaging from the storyboard and is set b
 
 ![MessagingViewController.m](img/008_MessagingViewController_m.png)
 
-Modify ```viewDidLoad``` method for initialzation a messaging.
+Modify ```viewDidLoad``` method for initialzation a messaging. 
 
 ```objectivec
 - (void)viewDidLoad {
