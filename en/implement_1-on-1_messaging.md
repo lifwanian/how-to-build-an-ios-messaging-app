@@ -603,7 +603,7 @@ To display the unread count on opponents, you have to send mark as read command 
 
 ### Display Unread Count
 
-When opponents send you mark as read command, it is returned in ```readReceivedBlock:``` callback in ```[Jiver setEventHandlerConnectBlock:...]```.
+When opponents send you mark as read command, it is returned in ```readReceivedBlock:``` callback in ```[Jiver setEventHandlerConnectBlock:...]```. If you received the mark as read command, set it to global variable and reload message table view.
 
 ```objectivec
 [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
@@ -646,6 +646,25 @@ When opponents send you mark as read command, it is returned in ```readReceivedB
     }];
 ```
 
+
+```objectivec
+- (void) setReadStatus:(NSString *)userId andTimestamp:(long long)ts
+{
+    if (readStatus == nil) {
+        readStatus = [[NSMutableDictionary alloc] init];
+    }
+    
+    if ([readStatus objectForKey:userId] == nil) {
+        [readStatus setObject:[NSNumber numberWithLongLong:ts] forKey:userId];
+    }
+    else {
+        long long oldTs = [[readStatus objectForKey:userId] longLongValue];
+        if (oldTs < ts) {
+            [readStatus setObject:[NSNumber numberWithLongLong:ts] forKey:userId];
+        }
+    }
+}
+```
 
 
 
