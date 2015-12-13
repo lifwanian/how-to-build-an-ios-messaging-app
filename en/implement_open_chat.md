@@ -365,7 +365,6 @@ To see previous messages in the channel, implement ```loadPreviousMessages``` me
 
 ```objectivec
 - (void) loadPreviousMessages {
-    // See 'How to build an iOS messaging app'
     if (isLoadingMessage) {
         return;
     }
