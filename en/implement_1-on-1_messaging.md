@@ -142,11 +142,192 @@ These codes get a view controller for messaging from the storyboard and is set b
 
 ## Implement Messaging
 
-```MessagingViewController.m``` is invoked by ```messagingStartedBlock:``` in ```OpenChatChattingViewController.m```. Open ```MessagingViewController.m``` to implement a messaging that includes a transfering a message, a typing indicator and an unread message count.
+```MessagingViewController.m``` is invoked by ```messagingStartedBlock:``` in ```OpenChatChattingViewController.m```. Open ```MessagingViewController.m``` in Xcode to implement a messaging that includes a transfering a message, a typing indicator and an unread message count.
 
 ![MessagingViewController.m](img/008_MessagingViewController_m.png)
 
+Modify ```viewDidLoad``` method for initialzation a messaging.
 
+```objectivec
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    isLoadingMessage = NO;
+    firstTimeLoading = YES;
+    lastMessageTimestamp = LLONG_MIN;
+    firstMessageTimestamp = LLONG_MAX;
+    scrollLocked = NO;
+    
+    messages = [[NSMutableArray alloc] init];
+    
+    [self.sendFileButton.layer setBorderColor:[[UIColor blueColor] CGColor]];
+    [self.sendMessageButton.layer setBorderColor:[[UIColor blueColor] CGColor]];
+    [self.messageTextField.layer setBorderColor:[[UIColor blueColor] CGColor]];
+    
+    [self.messagingTableView setDelegate:self];
+    [self.messagingTableView setDataSource:self];
+    [self.messagingTableView setSeparatorColor:[UIColor clearColor]];
+    [self.messagingTableView setContentInset:UIEdgeInsetsMake(0, 0, 12, 0)];
+    
+    [self.prevMessageLoadingIndicator setHidden:YES];
+    
+    [self hideTyping];
+    
+    [self.messageTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.messageTextField setDelegate:self];
+    
+    [self.navigationBarTitle setTitle:[MyUtils generateMessagingTitle:currentChannel]];
+    
+    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    [Jiver registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
+        if ([Jiver getCurrentChannel] != nil && [[Jiver getCurrentChannel] channelId] == [channel getId]) {
+            [self updateMessagingChannel:channel];
+        }
+    }
+    mentionUpdatedBlock:^(JiverMention *mention) {
+       
+    }];
+    [Jiver joinMessagingWithChannelUrl:[currentChannel getUrl]];
+    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+        [Jiver markAsRead];
+    } errorBlock:^(NSInteger code) {
+        
+    } channelLeftBlock:^(JiverChannel *channel) {
+        
+    } messageReceivedBlock:^(JiverMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+        
+        [Jiver markAsRead];
+    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+        
+        [Jiver markAsRead];
+    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+        if (lastMessageTimestamp < [message getMessageTimestamp]) {
+            lastMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
+        if ([message isPast]) {
+            [messages insertObject:message atIndex:0];
+        }
+        else {
+            [messages addObject:message];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+        
+        [Jiver markAsRead];
+    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+        if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
+            lastMessageTimestamp = [fileLink getMessageTimestamp];
+        }
+        
+        if ([fileLink isPast]) {
+            [messages insertObject:fileLink atIndex:0];
+        }
+        else {
+            [messages addObject:fileLink];
+        }
+        [self scrollToBottomWithReloading:YES animated:NO];
+        
+        [Jiver markAsRead];
+    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+        currentChannel = channel;
+        [self updateMessagingChannel:channel];
+        
+        [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+            for (JiverMessage *message in queryResult) {
+                if ([message isPast]) {
+                    [messages insertObject:message atIndex:0];
+                }
+                else {
+                    [messages addObject:message];
+                }
+                
+                if (lastMessageTimestamp < [message getMessageTimestamp]) {
+                    lastMessageTimestamp = [message getMessageTimestamp];
+                }
+                
+                if (firstMessageTimestamp > [message getMessageTimestamp]) {
+                    firstMessageTimestamp = [message getMessageTimestamp];
+                }
+            }
+            [self scrollToBottomWithReloading:YES animated:NO];
+            [Jiver joinChannel:[currentChannel getUrl]];
+            scrollLocked = NO;
+            [Jiver connectWithMessageTs:LLONG_MAX];
+        } endBlock:^(NSError *error) {
+            
+        }];
+    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+        currentChannel = channel;
+        [self updateMessagingChannel:channel];
+    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingEndedBlock:^{
+        
+    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingHiddenBlock:^{
+        
+    } readReceivedBlock:^(JiverReadStatus *status) {
+        [self setReadStatus:[[status user] guestId] andTimestamp:[status timestamp]];
+        [self.messagingTableView reloadData];
+    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+        [self setTypeStatus:[[status user] guestId] andTimestamp:[status timestamp]];
+        [self showTyping];
+    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+        [self setTypeStatus:[[status user] guestId] andTimestamp:0];
+        [self showTyping];
+    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+        
+    } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
+        
+    }];
+}
+```
 
 
 
