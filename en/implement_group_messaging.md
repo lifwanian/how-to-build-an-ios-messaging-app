@@ -99,7 +99,9 @@ You have to modify ```inviteUsers:``` method in order to invite multiple users.
 }
 ```
 
-Everythind else is same to 1-on-1 messaging. Group messaging looks like this:
+Other features are same to 1-on-1 messaging.
+
+
 
 
 
