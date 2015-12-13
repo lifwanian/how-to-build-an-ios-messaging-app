@@ -479,7 +479,7 @@ We use UIImagePickerController to pick an image for sending, modify following me
 
 Messaging supports a typing indicator. The typing indicator shows who is typing and how many people are typing now.
 
-When the message is entering in UITextField, send the command to notify typing. When UITextField is empty, send the command to notify typing end.
+When the message is entering in UITextField, send the command to notify typing. When ```UITextField``` is empty, send the command to notify typing end.
 
 ```objectivec
 - (void) textFieldDidChange:(UITextView *)textView
