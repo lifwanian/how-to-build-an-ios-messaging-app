@@ -361,7 +361,7 @@ We use [UIImagePickerController](https://developer.apple.com/library/ios/documen
 
 ## Load Previous Messages
 
-To see previous messages in the channel, implement ```loadPreviousMessages``` method. This method will be invoked when ```openChatChattingTableView`` draws the first item. 
+To see previous messages in the channel, implement ```loadPreviousMessages``` method. This method will be invoked when ```openChatChattingTableView`` draws the first cell. 
 
 ```objectivec
 - (void) loadPreviousMessages {
