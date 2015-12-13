@@ -64,6 +64,10 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
             lastMessageTimestamp = [message getMessageTimestamp];
         }
         
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
         if ([message isPast]) {
             [messages insertObject:message atIndex:0];
         }
@@ -78,6 +82,10 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
             lastMessageTimestamp = [message getMessageTimestamp];
         }
         
+        if (firstMessageTimestamp > [message getMessageTimestamp]) {
+            firstMessageTimestamp = [message getMessageTimestamp];
+        }
+        
         if ([message isPast]) {
             [messages insertObject:message atIndex:0];
         }
@@ -88,6 +96,10 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
     } fileReceivedBlock:^(JiverFileLink *fileLink) {
         if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
             lastMessageTimestamp = [fileLink getMessageTimestamp];
+        }
+        
+        if (firstMessageTimestamp > [fileLink getMessageTimestamp]) {
+            firstMessageTimestamp = [fileLink getMessageTimestamp];
         }
         
         if ([fileLink isPast]) {
@@ -118,11 +130,11 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
     } typeStartReceivedBlock:^(JiverTypeStatus *status) {
         
     } typeEndReceivedBlock:^(JiverTypeStatus *status) {
-
+        
     } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
-
+        
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
-
+        
     }];
 ```
 
