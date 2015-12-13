@@ -8,7 +8,7 @@ You need opponent's user ID in order to start 1-on-1 messaging. Each message in 
 
 Open **OpenChatChattingViewController.m** in Xcode.
 
-![OpenChatChattingViewController.m](img/002_OpenChatChattingViewController_m.png)
+![OpenChatChattingViewController.m](img/004_OpenChatChattingViewController_m.png)
 
 Implement ```tableView:didSelectRowAtIndexPath:``` for getting the user ID of the message's sender.
 
