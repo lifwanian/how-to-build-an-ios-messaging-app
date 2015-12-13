@@ -603,4 +603,11 @@ To display the unread count on opponents, you have to send mark as read command 
 
 ### Display Unread Count
 
+When opponents send you mark as read command, it is returned in ```readReceivedBlock:``` callback in ```[Jiver setEventHandlerConnectBlock:...]```.
+
+
+
+
+
+
 ![Typing Indicator](img/009_Screenshot.png)
