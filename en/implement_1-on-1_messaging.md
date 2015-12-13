@@ -509,7 +509,43 @@ You can receieve the typing status of other users in the same channel in callbac
     //...
 ```
 
+We always consider the network problem. The command to notify typing end can be lost, so you need to implement a timer for dealing with it.
 
+```objectivec
+- (void)startTimer
+{
+    if (typingIndicatorTimer != nil) {
+        [typingIndicatorTimer invalidate];
+    }
+
+    typingIndicatorTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(clearTypingIndicator:) userInfo:nil repeats:NO];
+}
+
+- (void)clearTypingIndicator:(NSTimer *)timer
+{
+    [self hideTyping];
+}
+```
+
+```objectivec
+- (void) showTyping
+{
+    if ([typeStatus count] == 0) {
+        [self hideTyping];
+    }
+    else {
+        [self.typingIndicatorView setHidden:NO];
+        [self.typeStatusLabel setHidden:NO];
+        self.typingIndicatorHeight.constant = 48;
+        [self.view updateConstraints];
+        
+        [self scrollToBottomWithReloading:NO animated:NO];
+        
+        [self.typeStatusLabel setText:[MyUtils generateTypingStatus:typeStatus]];
+    }
+    [self startTimer];
+}
+```
 
 
 ## Implement Unread Count on Each Message
