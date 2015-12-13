@@ -12,7 +12,7 @@ You can select users who you want to invite in Messaging **Tab > Invite > Select
 
 ## Invite Users
 
-The callback block is required to get the messaging channel after inviting users. ```messagingStartedBlock:``` will be invoked after inviting. You should put code to open ```MessagingViewController``` here.
+The callback block is required to get the messaging channel after inviting users. ```messagingStartedBlock:``` will be invoked after inviting. You should put codes to open ```MessagingViewController``` here.
 
 ```objectivec
 - (void)viewDidLoad {
