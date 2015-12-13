@@ -646,7 +646,7 @@ When opponents send you mark as read command, it is returned in ```readReceivedB
     }];
 ```
 
-If you received the mark as read command, update your read status and reload message table view with it.
+If you received the mark as read command, update read status of the current channel and reload message table view with it.
 
 ```objectivec
 - (void) setReadStatus:(NSString *)userId andTimestamp:(long long)ts
@@ -667,7 +667,7 @@ If you received the mark as read command, update your read status and reload mes
 }
 ```
 
-
+When the current channel is updated by ```registerNotificationHandlerMessagingChannelUpdatedBlock:mentionUpdatedBlock:```, you have to update the read status of the channel.
 
 
 
