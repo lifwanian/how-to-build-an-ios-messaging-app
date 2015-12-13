@@ -698,3 +698,4 @@ When the current channel is updated by ```registerNotificationHandlerMessagingCh
 If you implemented all of the read status, you can see the unread count on each message.
 
 ![Typing Indicator](img/009_Screenshot.png)
+
