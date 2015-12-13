@@ -553,7 +553,3 @@ The typing indicator will be on the bottom of the message table view.
 
 ## Implement Unread Count on Each Message
 
-
-
-
-![1-on-1 Messaging](img/009_Simulator.png)
