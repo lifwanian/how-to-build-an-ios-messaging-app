@@ -140,7 +140,18 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
 
 These codes get a view controller for messaging from the storyboard and is set by the channel which returned from the block. Finally, the view controller is started.
 
-## Join messaging channel
+## Implement Messaging
+
+```MessagingViewController.m``` is invoked by ```messagingStartedBlock:``` in ```OpenChatChattingViewController.m```. Open ```MessagingViewController.m``` to implement a messaging that includes a transfering a message, a typing indicator and an unread message count.
+
+![MessagingViewController.m](img/008_MessagingViewController_m.png)
+
+
+
+
+
+
+
 
 You have to add some codes for getting previous messages. Write the following code below ```[Jiver setEventHandlerConnectBlock ...]```.
 
