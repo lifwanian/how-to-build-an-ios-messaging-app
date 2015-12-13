@@ -1,6 +1,6 @@
 # Implement Open Chat
 
-## Create the channels on JIVER Dashboard
+## Create the Channels on JIVER Dashboard
 
 You have to prepare channels for open chat in your application in order to implement open chat.
 
