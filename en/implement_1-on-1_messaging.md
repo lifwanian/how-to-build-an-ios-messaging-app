@@ -150,44 +150,7 @@ Modify ```viewDidLoad``` method for initialzation a messaging.
 
 ```objectivec
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
-    isLoadingMessage = NO;
-    firstTimeLoading = YES;
-    lastMessageTimestamp = LLONG_MIN;
-    firstMessageTimestamp = LLONG_MAX;
-    scrollLocked = NO;
-    
-    messages = [[NSMutableArray alloc] init];
-    
-    [self.sendFileButton.layer setBorderColor:[[UIColor blueColor] CGColor]];
-    [self.sendMessageButton.layer setBorderColor:[[UIColor blueColor] CGColor]];
-    [self.messageTextField.layer setBorderColor:[[UIColor blueColor] CGColor]];
-    
-    [self.messagingTableView setDelegate:self];
-    [self.messagingTableView setDataSource:self];
-    [self.messagingTableView setSeparatorColor:[UIColor clearColor]];
-    [self.messagingTableView setContentInset:UIEdgeInsetsMake(0, 0, 12, 0)];
-    
-    [self.prevMessageLoadingIndicator setHidden:YES];
-    
-    [self hideTyping];
-    
-    [self.messageTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.messageTextField setDelegate:self];
-    
-    [self.navigationBarTitle setTitle:[MyUtils generateMessagingTitle:currentChannel]];
+    //...
     
     [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
     [Jiver registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
