@@ -101,7 +101,7 @@ You have to modify ```inviteUsers:``` method in order to invite multiple users.
 
 Other features are same to 1-on-1 messaging.
 
-
+![Group Messaging](img/014_Screenshot.png)
 
 
 
