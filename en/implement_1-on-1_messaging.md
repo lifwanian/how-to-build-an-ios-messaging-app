@@ -408,6 +408,7 @@ To send a message, modify ```sendMessage:``` method. This method is invoked by c
     if ([message length] > 0) {
         [self.messageTextField setText:@""];
         [Jiver sendMessage:message];
+        [Jiver typeEnd];
     }
     scrollLocked = NO;
 }
@@ -493,6 +494,7 @@ When the message is entering in UITextField, send the command to notify typing. 
 ```
 
 ### Receive Typing Status
+
 
 
 
