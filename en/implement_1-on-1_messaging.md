@@ -551,8 +551,11 @@ The typing indicator will be on the bottom of the message table view.
 
 ![Typing Indicator](img/008_Screenshot.png)
 
-## Implement Unread Count on Each Message
+## Manage Unread Count on Each Message
+
+### Send Mark As Read
 
 
+### Display Unread Count
 
 ![Typing Indicator](img/009_Screenshot.png)
