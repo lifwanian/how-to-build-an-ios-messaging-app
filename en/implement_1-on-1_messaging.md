@@ -678,3 +678,6 @@ Open ```MessagingChannelListViewController.m``` in Xcode.
 
 ![MessagingChannelListViewController.m](img/016_MessagingChannelListViewController_m.png)
 
+The messaging channel list will be updated when each channel is updated. Each channel item of the list includes the title which is consist of members' name, the number of members, the last message in the channel, the date of the last message and the unread message count.
+
+![Messaging Channel List](img/017_Screenshot.png)
