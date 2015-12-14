@@ -12,3 +12,5 @@ This project has 4 features for general chat and messaging.
 **1-on-1 messaging** is a private channel between two users. **Group messaging** is a private channel between multiple users. The user who wants to join the **Group messaging** channel has to be invited by other user who is already joined the **Group messaging** channel.
 
 **Profile settings** have a profile image and a nickname which are used in channels.
+
+![Open Chat Chanel List](img/003_Screenshot.png)
