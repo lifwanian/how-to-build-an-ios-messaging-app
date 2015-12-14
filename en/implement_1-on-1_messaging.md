@@ -680,4 +680,40 @@ Open ```MessagingChannelListViewController.m``` in Xcode.
 
 The messaging channel list will be updated when each channel is updated. Each channel item of the list includes the title which is consist of members' name, the number of members, the last message in the channel, the date of the last message and the unread message count.
 
+```objectivec
+- (void) startJiver
+{
+    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    [Jiver registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
+        for (JiverMessagingChannel *oldChannel in channelArray) {
+            if ([oldChannel getId] == [channel getId]) {
+                [channelArray removeObject:oldChannel];
+                break;
+            }
+        }
+        [channelArray insertObject:channel atIndex:0];
+        [self.messagingChannelListTableView reloadData];
+    }
+    mentionUpdatedBlock:^(JiverMention *mention) {
+
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        messagingChannelListQuery = [Jiver queryMessagingChannelList];
+        [messagingChannelListQuery setLimit:15];
+        if ([messagingChannelListQuery hasNext]) {
+            [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+                [channelArray removeAllObjects];
+                [channelArray addObjectsFromArray:queryResult];
+                [self.messagingChannelListTableView reloadData];
+            } endBlock:^(NSInteger code) {
+                
+            }];
+        }
+        [Jiver joinChannel:@""];
+        [Jiver connect];
+    });
+}
+```
+
 ![Messaging Channel List](img/017_Screenshot.png)
