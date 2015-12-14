@@ -337,6 +337,7 @@ Modify ```loadPreviosMessage``` method for getting previous messages.
 
 ```objectivec
 - (void) loadPreviousMessages {
+    // See 'How to build an iOS messaging app'
     if (isLoadingMessage) {
         return;
     }
