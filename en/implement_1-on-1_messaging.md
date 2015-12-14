@@ -52,10 +52,9 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
 
  You should insert codes for joining the channel in [messagingStartedBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:). Note the codes in ```messagingStartedBlock:```.
  
- ```objectivec
-- (void)startChattingWithPreviousMessage {
-    // ...
-    
+```objectivec
+- (void)startChattingWithPreviousMessage:(BOOL)tf
+{
     [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
     [Jiver joinChannel:[currentChannel url]];
     [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
@@ -141,6 +140,36 @@ If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWit
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         
     }];
+    
+    if (tf) {
+        [[Jiver queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+            for (JiverMessage *message in queryResult) {
+                if ([message isPast]) {
+                    [messages insertObject:message atIndex:0];
+                }
+                else {
+                    [messages addObject:message];
+                }
+                
+                if (lastMessageTimestamp < [message getMessageTimestamp]) {
+                    lastMessageTimestamp = [message getMessageTimestamp];
+                }
+                
+                if (firstMessageTimestamp > [message getMessageTimestamp]) {
+                    firstMessageTimestamp = [message getMessageTimestamp];
+                }
+                
+            }
+            [self scrollToBottomWithReloading:YES animated:NO];
+            scrollLocked = NO;
+            [Jiver connectWithMessageTs:LLONG_MAX];
+        } endBlock:^(NSError *error) {
+            
+        }];
+    }
+    else {
+        [Jiver connect];
+    }
 }
 ```
 
