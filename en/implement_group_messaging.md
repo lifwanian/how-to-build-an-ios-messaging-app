@@ -13,7 +13,7 @@ You can select users who you want to invite in **Messaging Tab > Invite > Select
 
 Open ```MessagingInviteSelectUserViewController.m`` in Xcode to implement inviting users.
 
-![MessagingInviteSelectUserViewController.m](img/012_MessagingInviteSelectUserViewController_m.png)
+![MessagingInviteSelectUserViewController.m](img/013_MessagingInviteSelectUserViewController_m.png)
 
 The callback block is required to get the messaging channel after inviting users. ```messagingStartedBlock:``` will be invoked after inviting. You should put codes to open ```MessagingViewController``` here.
 
