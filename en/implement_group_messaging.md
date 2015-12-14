@@ -19,16 +19,7 @@ The callback block is required to get the messaging channel after inviting users
 
 ```objectivec
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    isLoadingUser = NO;
-    
-    [self.messagingInviteSelectUserTableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
-    [self.messagingInviteSelectUserTableView setDelegate:self];
-    [self.messagingInviteSelectUserTableView setDataSource:self];
-    
-    userArray = [[NSMutableArray alloc] init];
+    // ...
     
     [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
     memberListQuery = [Jiver queryMemberListInChannel:[selectedChannel url]];
