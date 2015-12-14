@@ -13,10 +13,4 @@ This project has 4 features for general chat and messaging.
 
 **Profile settings** have a profile image and a nickname which are used in channels.
 
-![Open Chat Chanel List](img/003_Screenshot.png)
-
-![Open Chat](img/006_Screenshot.png)
-
-![Messaging](img/009_Screenshot.png)
-
-![Profile Settings](img/015_Screenshot.png)
+![Open Chat Chanel List](img/003_Screenshot.png) ![Open Chat](img/006_Screenshot.png) ![Messaging](img/009_Screenshot.png) ![Profile Settings](img/015_Screenshot.png)
