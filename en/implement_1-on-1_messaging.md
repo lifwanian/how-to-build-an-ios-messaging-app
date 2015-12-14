@@ -680,7 +680,7 @@ Open ```MessagingChannelListViewController.m``` in Xcode.
 
 The messaging channel list will be updated when each channel is updated. Each channel item of the list includes the title which is consist of members' name, the number of members, the last message in the channel, the date of the last message and the unread message count.
 
-```startJiver``` method is invoked when the messaging tab is selected and ```prepareCloseMessagingViewController``` of ```MessagingViewControllerDelegate``` and ```prepareCloseMessagingInviteSelectChannelViewController``` of ```MessagingInviteSelectChannelViewControllerDelegate``` are invoked. ```registerNotificationHandlerMessagingChannelUpdatedBlock``` callback returns updated messaging channel, so you have to update the channel which is returned
+```startJiver``` method is invoked when the messaging tab is selected and ```prepareCloseMessagingViewController``` of ```MessagingViewControllerDelegate``` and ```prepareCloseMessagingInviteSelectChannelViewController``` of ```MessagingInviteSelectChannelViewControllerDelegate``` are invoked. ```registerNotificationHandlerMessagingChannelUpdatedBlock``` callback returns updated messaging channel, so you have to update the channel which is returned.
 
 ```objectivec
 - (void) startJiver
@@ -717,5 +717,7 @@ The messaging channel list will be updated when each channel is updated. Each ch
     });
 }
 ```
+
+
 
 ![Messaging Channel List](img/017_Screenshot.png)
