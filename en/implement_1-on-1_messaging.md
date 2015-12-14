@@ -672,3 +672,6 @@ If you implemented all of the read status, you can see the unread count on each 
 
 ## Implement Messaging List
 
+Each user has the list of messaging channels which joined. We will show it on Messaging Tab.
+
+![MessagingChannelListViewController.m](img/016_MessagingChannelListViewController_m.png)
