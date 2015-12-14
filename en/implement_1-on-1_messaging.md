@@ -718,6 +718,20 @@ The messaging channel list will be updated when each channel is updated. Each ch
 }
 ```
 
+When the channel is clicked ```MessagingViewController``` have to be opened.
+
+```objectivec
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JiverMessagingChannel *channel = (JiverMessagingChannel *)[channelArray objectAtIndex:[indexPath row]];
+    
+    UIStoryboard *storyboard = [self storyboard];
+    MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
+    [vc setMessagingChannel:channel];
+    [vc setDelegate:self];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+```
 
 
 ![Messaging Channel List](img/017_Screenshot.png)
