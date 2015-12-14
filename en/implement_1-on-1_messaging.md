@@ -756,6 +756,6 @@ To see next channel list, implement ```loadNextChannelList``` method. This metho
         }];
     }
 }
-```
+``` 
 
 ![Messaging Channel List](img/017_Screenshot.png)
