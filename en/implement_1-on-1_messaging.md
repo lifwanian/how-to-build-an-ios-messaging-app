@@ -480,7 +480,7 @@ You can receive the typing status of other users in the same channel in callback
     //...
 ```
 
-We always consider the network problem. The command to notify typing end can be lost, so you need to implement a timer for dealing with it. The timer will remove the indicator after 10 seconds even if the command to notify typind end is not receieved.
+We always have to consider the network problem. The command to notify typing end can be lost, so you need to implement a timer for dealing with it. The timer will remove the indicator after 10 seconds even if the command to notify typind end is not receieved.
 
 ```objectivec
 - (void)startTimer
