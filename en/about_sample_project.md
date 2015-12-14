@@ -19,4 +19,4 @@ This project has 4 features for general chat and messaging.
 
 ![Messaging](img/009_Screenshot.png)
 
-![Profile Settings](img/014_Screenshot.png)
+![Profile Settings](img/015_Screenshot.png)
