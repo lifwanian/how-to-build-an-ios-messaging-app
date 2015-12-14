@@ -733,5 +733,27 @@ When the channel is clicked ```MessagingViewController``` have to be opened.
 }
 ```
 
+### Load Next Channel List
+
+```objectivec
+- (void)loadNextChannelList
+{
+    if (isLoadingChannel) {
+        return;
+    }
+    isLoadingChannel = YES;
+    
+    if ([messagingChannelListQuery hasNext]) {
+        [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+            [channelArray addObjectsFromArray:queryResult];
+            [self.messagingChannelListTableView reloadData];
+            
+            isLoadingChannel = NO;
+        } endBlock:^(NSInteger code) {
+            isLoadingChannel = NO;
+        }];
+    }
+}
+```
 
 ![Messaging Channel List](img/017_Screenshot.png)
