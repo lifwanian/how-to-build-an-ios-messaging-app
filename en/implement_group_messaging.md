@@ -75,8 +75,6 @@ The callback block is required to get the messaging channel after inviting users
 }
 ```
 
-![MessagingInviteSelectUserViewController.m](img/013_MessagingInviteSelectUserViewController_m.png)
-
 
 You have to modify ```inviteUsers:``` method in order to invite multiple users.
 
