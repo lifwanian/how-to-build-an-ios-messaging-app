@@ -16,3 +16,7 @@ This project has 4 features for general chat and messaging.
 ![Open Chat Chanel List](img/003_Screenshot.png)
 
 ![Open Chat](img/006_Screenshot.png)
+
+![Messaging](img/009_Screenshot.png)
+
+![Profile Settings](img/014_Screenshot.png)
