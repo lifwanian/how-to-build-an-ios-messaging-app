@@ -309,7 +309,7 @@ To send a message, modify ```sendMessage``` method. This method is invoked by cl
 }
 ```
 
-To send an image, modify ```clickSendFileButton:``` method. This method is invoked by clickng “File” button.
+If you click **File** button, [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/) will be opened by ```clickSendFileButton:``` method.
 
 ```objectivec
 - (IBAction)clickSendFileButton:(id)sender {
