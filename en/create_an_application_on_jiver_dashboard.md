@@ -1,4 +1,4 @@
-# Create an application on JIVER Dashboard
+# Create an Application on JIVER Dashboard
 
 First of all, you must create an application on JIVER Dashboard for using it. 
 
