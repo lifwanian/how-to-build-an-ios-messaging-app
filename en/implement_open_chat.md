@@ -8,7 +8,7 @@ You have to create channels in order to implement open chat in your application.
 2. Select **APPLICATION** on the side menu and click on your app.
 3. Click **CHANNELS** tab.
 4. Click **CREATE CHANNEL** button.
-5. Fill up the form about the channel you want to create.
+5. Fill up the form to create the channel you want to create.
 6. Click **CREATE** button.
 
  
