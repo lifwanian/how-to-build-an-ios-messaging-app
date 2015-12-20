@@ -1,6 +1,6 @@
 # Create an Application on JIVER Dashboard
 
-First of all, you must create an application on JIVER Dashboard for using it. 
+You must first create an application on JIVER Dashboard for using it. 
 
 1. Sign in [JIVER Dashboard](https://dashboard.jiver.co).
 1. Select **APPLICATION** on the side menu and click **NEW APP**.
