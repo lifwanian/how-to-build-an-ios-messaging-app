@@ -6,7 +6,7 @@ You can download the sample project from this [link](https://github.com/smilefam
 
 ## Features
 
-The project implements 4 features for a general chat and messaging.
+The project implements 4 features for a general chat and messaging app.
 
 * Open chat
 * 1-on-1 messaging
