@@ -12,7 +12,7 @@ pod 'JiverSDK'
 ```
 $ pod install
 ```
-1. After the installation, open ```<YOUR_PROJECT>.xcworkspace``` instead of ```<YOUR_PROJECT>.xcodeproj```.
+1. After the installation, open ```<YOUR_PROJECT>.xcworkspace```. Don't confuse with ```<YOUR_PROJECT>.xcodeproj```.
 ```
 $ open <YOUR_PROJECT>.xcworkspace
 ```
