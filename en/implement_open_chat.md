@@ -45,7 +45,7 @@ Add [JiverChannelListQuery](http://docs.jiver.co/ref/ios/en/Classes/JiverChannel
 }
 ```
 
-Insert following code to log in and query the channels into the bottom of ```viewDidLoad``` method.
+Insert the following code to log in and query the channels into the bottom of ```viewDidLoad``` method.
 
 ```objectivec
 - (void)viewDidLoad {
