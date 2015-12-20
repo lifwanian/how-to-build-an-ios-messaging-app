@@ -4,7 +4,7 @@ The latest version of JIVER iOS framework is already included in the project, so
 
 1. You must have CocoaPods installed. Check out https://cocoapods.org/
 1. If you don’t have ```Podfile``` in your project, create it.
-1. Insert below line into ```Podfile```.
+1. Insert the following line into ```Podfile```.
 ```
 pod 'JiverSDK'
 ```
