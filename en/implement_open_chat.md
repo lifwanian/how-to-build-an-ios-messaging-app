@@ -77,7 +77,7 @@ Insert the following code to log in and query the channels at the bottom of ```v
 }
 ```
 
-**User ID** is used to identify users in your application. This project uses device ID(IDFV) as **User ID**. If there isn’t the user which has the user ID, JIVER will create the user with the ID.
+**User ID** is used to identify users in your application. This project uses device ID(IDFV) as **User ID**. If there isn’t the user which has the user ID, JIVER will generate the user with the ID.
 
 Querying channels supports a pagination. Let’s implement the pagination.
 
