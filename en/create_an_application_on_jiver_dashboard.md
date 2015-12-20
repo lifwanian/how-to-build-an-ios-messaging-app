@@ -4,7 +4,7 @@ You must first create an application on JIVER Dashboard before being able to usi
 
 1. Sign in at [JIVER Dashboard](https://dashboard.jiver.co).
 1. Select **APPLICATION** on the side menu and click the **NEW APP**.
-1. Fill up the form about your application and click **CREATE** button.
+1. Fill up the form with details of your application and click **CREATE** button.
 
 You can see **APP ID** of your application on the dashboard like this:
 
