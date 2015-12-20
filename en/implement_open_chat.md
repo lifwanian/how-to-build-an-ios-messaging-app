@@ -2,7 +2,7 @@
 
 ## Create Channels on JIVER Dashboard
 
-You have to create channels for open chat in your application in order to implement open chat.
+You have to create channels in order to implement open chat in your application.
 
 1. Sign in [JIVER Dashboard](https://dashboard.jiver.co).
 2. Select **APPLICATION** on the side menu and click your app.
