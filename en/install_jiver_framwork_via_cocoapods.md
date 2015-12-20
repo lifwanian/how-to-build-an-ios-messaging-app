@@ -17,7 +17,7 @@ $ pod install
 $ open <YOUR_PROJECT>.xcworkspace
 ```
 
-See this [link](https://jiver.gitbooks.io/ios-sdk/content/en/download_sdk.html) for detail.
+See this [link](https://jiver.gitbooks.io/ios-sdk/content/en/download_sdk.html) for details.
 
 
 
