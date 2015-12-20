@@ -10,4 +10,4 @@ You can see the **APP ID** of your application on the dashboard:
 
 ![APP ID on JIVER Dashboard](./img/002_JIVER_-_Dashboard.png)
 
-**APP ID** will be used for the initialization of iOS framework.
+The **APP ID** is required to initialize the iOS framework.
