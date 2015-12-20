@@ -13,7 +13,7 @@ The project implements 4 features for a general chat and messaging app.
 * Group messaging
 * Profile settings
 
-**Open chat** is a public chat. There is a channel which can be participated by anyone without an admission. The channel can be created on JIVER dashboard or via server API.
+**Open chat** is a public chat. This is a channel which can be participated by anyone without an admission. The channel can be created on JIVER dashboard or via server API.
 
 **1-on-1 messaging** is a private channel between two users. **Group messaging** is a private channel between multiple users. The user who wants to join the **Group messaging** channel has to be invited by other user who is already joined the **Group messaging** channel.
 
