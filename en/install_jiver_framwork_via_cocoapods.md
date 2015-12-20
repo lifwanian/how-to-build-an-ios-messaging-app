@@ -1,4 +1,4 @@
-# Install JIVER framwork via CocoaPods
+# Install JIVER Framework via CocoaPods
 
 The latest version of JIVER iOS framework is already included in the project, so you don’t have to install it again. However, if you’d like to install it in your own project, see below:
 
