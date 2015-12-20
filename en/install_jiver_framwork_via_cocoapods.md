@@ -8,7 +8,7 @@ The latest version of JIVER iOS framework is already included in the project, so
 ```
 pod 'JiverSDK'
 ```
-1. Install JIVER framework. Run the following command in terminal.
+1. Install JIVER framework. Run the following command in the terminal.
 ```
 $ pod install
 ```
