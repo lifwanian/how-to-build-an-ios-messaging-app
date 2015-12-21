@@ -733,7 +733,7 @@ When the channel is clicked ```MessagingViewController``` has to be open.
 
 ### Load Next Channel List
 
-To see next channel list, implement ```loadNextChannelList``` method. This method will be invoked when ```messagingChannelListTableView`` draws the last cell. 
+To see the next channel list, implement ```loadNextChannelList``` method. This method will be invoked when the ```messagingChannelListTableView`` draws the last cell. 
 
 ```objectivec
 - (void)loadNextChannelList
