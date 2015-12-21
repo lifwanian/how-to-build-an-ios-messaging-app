@@ -446,9 +446,9 @@ If you click the ***File*** button, ```clickSendFileButton:``` method will be in
 
 ### Send Typing Status
 
-Messaging supports a typing indicator. The typing indicator shows who is typing and how many people are typing now.
+The Messaging supports a typing indicator. The typing indicator shows who is typing and how many people are typing now.
 
-When the message is entering in UITextField, send the command to notify typing. When ```UITextField``` is empty, send the command to notify typing end.
+When a message is being entered in ```UITextField```, send a command to notify typing status. When ```UITextField``` is empty, send a command to notify the end of typing.
 
 ```objectivec
 - (void) textFieldDidChange:(UITextView *)textView
