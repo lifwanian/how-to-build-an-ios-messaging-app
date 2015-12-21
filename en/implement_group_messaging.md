@@ -1,8 +1,8 @@
 # Implement Group Messaging
 
-Group messaging is the extened concept of the 1-on-1 messaging. It has also the features for inviting users, typing indicator and unread message count.
+Group messaging is an extended concept of 1-on-1 messaging. It also comes with features for inviting users, a typing indicator and an unread message count.
 
-Three or more users is required in order to start group messaging. The sample project provides the feature for it in Messaging tab.
+Three or more users are required in order to start a group messaging. The sample project provides these feature for it in a Messaging Tab.
 
 You can select users who you want to invite in **Messaging Tab > Invite > Select Channel > Select User**. 
 
