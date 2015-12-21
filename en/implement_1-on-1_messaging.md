@@ -670,15 +670,15 @@ If you implement the read status for all messages, you can see the unread count 
 
 ## Implement Messaging List
 
-Each user has the list of messaging channels which joined. We will show it on Messaging Tab.
+Each user has a list of messaging channels which it joined. We will display the channel list on Messaging Tab.
 
 Open ```MessagingChannelListViewController.m``` in Xcode.
 
 ![MessagingChannelListViewController.m](img/016_MessagingChannelListViewController_m.png)
 
-The messaging channel list will be updated when each channel is updated. Each channel item of the list includes the title which is consist of members' name, the number of members, the last message in the channel, the date of the last message and the unread message count.
+The messaging channel list will be updated whenever each channel is updated. Each channel item in the list includes a title which consists of its members, the member count, the last message in the channel, the date of the last message and the unread message count.
 
-```startJiver``` method is invoked when the messaging tab is selected and ```prepareCloseMessagingViewController``` of ```MessagingViewControllerDelegate``` and ```prepareCloseMessagingInviteSelectChannelViewController``` of ```MessagingInviteSelectChannelViewControllerDelegate``` are invoked. ```registerNotificationHandlerMessagingChannelUpdatedBlock``` callback returns updated messaging channel, so you have to update the channel which is returned.
+```startJiver``` method is invoked when the messaging tab is selected and ```prepareCloseMessagingViewController``` of ```MessagingViewControllerDelegate``` and ```prepareCloseMessagingInviteSelectChannelViewController``` of ```MessagingInviteSelectChannelViewControllerDelegate``` are invoked. ```registerNotificationHandlerMessagingChannelUpdatedBlock``` callback returns an updated messaging channel, which should be used to update the corresponding channel.
 
 ```objectivec
 - (void) startJiver
@@ -716,7 +716,7 @@ The messaging channel list will be updated when each channel is updated. Each ch
 }
 ```
 
-When the channel is clicked ```MessagingViewController``` have to be opened.
+When the channel is clicked ```MessagingViewController``` has to be open.
 
 ```objectivec
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
