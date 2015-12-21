@@ -522,9 +522,9 @@ The typing indicator is at the bottom of the message table view.
 
 ## Manage Unread Count on Each Message
 
-### Send Mark As Read
+### Send Mark-as-Read
 
-To display the unread count on opponents, you have to send mark as read command whenever you received messages.
+In order to display the number of users who did not read a certain message, you have to send the mark-as-read command whenever you receive message.
 
 ```objectivec
 [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
@@ -572,7 +572,7 @@ To display the unread count on opponents, you have to send mark as read command 
 
 ### Display Unread Count
 
-When opponents send you mark as read command, it is returned in ```readReceivedBlock:``` callback in ```[Jiver setEventHandlerConnectBlock:...]```. 
+When other users send you a mark-as-read command, it is passed to ```readReceivedBlock:``` callback in ```[Jiver setEventHandlerConnectBlock:...]```. 
 
 ```objectivec
 [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
@@ -615,7 +615,7 @@ When opponents send you mark as read command, it is returned in ```readReceivedB
     }];
 ```
 
-If you received the mark as read command, update read status of the current channel and reload message table view with it.
+If you received a mark-as-read command, update the read status of the current channel and reload the message table view.
 
 ```objectivec
 - (void) setReadStatus:(NSString *)userId andTimestamp:(long long)ts
@@ -664,7 +664,7 @@ When the current channel is updated by ```registerNotificationHandlerMessagingCh
 }
 ```
 
-If you implemented all of the read status, you can see the unread count on each message.
+If you implement the read status for all messages, you can see the unread count for each of them.
 
 ![Typing Indicator](img/009_Screenshot.png)
 
