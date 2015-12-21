@@ -111,7 +111,7 @@ Modify ```loadNextChannelList``` like this:
 
 ## Channel Search
 
-JIVER supports channel searching. The sample project already includes UISearchBar for it.
+JIVER supports channel search which is implemented at UISearchBar in the sample project.
 
 Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBarSearchButtonClicked:) for querying with a keyword and [searchBarCancelButtonClicked:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBarCancelButtonClicked:) for canceling the result.
 
