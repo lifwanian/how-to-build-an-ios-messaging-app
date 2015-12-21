@@ -160,7 +160,7 @@ Open **OpenChatChattingViewController.m** in Xcode.
 
 The user interface for the chat consists of ```UITableView``` for displaying messages, ```UIButton``` for sending an image, ```UITextField``` for entering a message, and ```UIButton``` for sending a message. 
 
-Modify ```startChattingWithPreviousMessage:``` method. This method is used when the chat starts. If you want to get previous messages when started, pass ```YES```. Otherwise, pass ```NO```.
+Modify ```startChattingWithPreviousMessage:``` method. This method is invoked when the chat begins. If you want to get previous messages during initialization, pass ```YES``` as an argument. Otherwise, pass ```NO```.
 
 ```objectivec
 - (void)startChattingWithPreviousMessage:(BOOL)tf
