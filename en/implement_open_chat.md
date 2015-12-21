@@ -158,7 +158,7 @@ Open **OpenChatChattingViewController.m** in Xcode.
 
 ![Open OpenChatChattingViewController.m](img/004_OpenChatChattingViewController_m.png)
 
-The user interface for chat is consist of ```UITableView``` for messages, ```UIButton``` for sending an image, ```UITextField``` for entering a message and ```UIButton``` for sending a message. 
+The user interface for the chat consists of ```UITableView``` for messages, ```UIButton``` for sending an image, ```UITextField``` for entering a message and ```UIButton``` for sending a message. 
 
 Modify ```startChattingWithPreviousMessage:``` method. This method is used when the chat starts. If you want to get previous messages when started, pass ```YES```. Otherwise, pass ```NO```.
 
