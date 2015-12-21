@@ -405,6 +405,6 @@ To view previous messages in the channel, implement ```loadPreviousMessages``` m
 
 ## Run Sample Project
 
-Build the project, join a channel and send a message. You need two devices or one device and iOS simulator for testing. If you don’t have a real device, you can use **OPERATIONS** on **JIVER Dashboard** to chat with an iOS simulator.
+Build the project, join a channel and send a message. You need two devices or one device and an iOS simulator for testing. If you don’t have an extra device, you can use **OPERATIONS** on **JIVER Dashboard** to chat using an iOS simulator.
  
 ![Run the project](img/006_Screenshot.png)
