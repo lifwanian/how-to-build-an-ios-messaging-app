@@ -464,7 +464,7 @@ When a message is being entered in ```UITextField```, send a command to notify t
 
 ### Receive Typing Status
 
-You can receive the typing status of other users in the same channel in callback blocks. ```[Jiver setEventHandlerConnectBlock:...``` includes the callbacks for it. 
+You can receive the typing status of other users in the same channel in callback blocks. ```[Jiver setEventHandlerConnectBlock:...``` includes these callbacks. 
 
 ```objectivec
     //...
@@ -478,7 +478,7 @@ You can receive the typing status of other users in the same channel in callback
     //...
 ```
 
-We always have to consider the network problem. The command to notify typing end can be lost, so you need to implement a timer for dealing with it. The timer will remove the indicator after 10 seconds even if the command to notify typind end is not receieved.
+We always have to consider the network issue. The command that notifies the end of typing can get lost, so you need to implement a timer to handle this exception. The timer will remove the indicator after 10 seconds even if the command that notifies the end of typing is not received.
 
 ```objectivec
 - (void)startTimer
@@ -516,7 +516,7 @@ We always have to consider the network problem. The command to notify typing end
 }
 ```
 
-The typing indicator will be on the bottom of the message table view.
+The typing indicator is at the bottom of the message table view.
 
 ![Typing Indicator](img/008_Screenshot.png)
 
