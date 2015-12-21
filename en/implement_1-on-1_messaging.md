@@ -177,11 +177,11 @@ These lines of code get a view controller for messaging from the storyboard and 
 
 ## Implement Messaging
 
-```MessagingViewController.m``` is invoked by ```messagingStartedBlock:``` in ```OpenChatChattingViewController.m```. Open ```MessagingViewController.m``` in Xcode to implement a messaging that includes a transfering a message, a typing indicator and an unread message count. When the current channel is updated ```registerNotificationHandlerMessagingChannelUpdatedBlock:``` will be invoked, then you have to update the infomation and read status of the channel.
+```MessagingViewController.m``` is invoked by ```messagingStartedBlock:``` in ```OpenChatChattingViewController.m```. Open ```MessagingViewController.m``` in Xcode to implement messaging features including a message transfer, a typing indicator and an unread message count. When the current channel is updated ```registerNotificationHandlerMessagingChannelUpdatedBlock:``` will be invoked, then you have to update the infomation and message's read status of the channel.
 
 ![MessagingViewController.m](img/008_MessagingViewController_m.png)
 
-Modify ```viewDidLoad``` method for initialzation a messaging. 
+Modify ```viewDidLoad``` method to initialze the messaging system.
 
 ```objectivec
 - (void)viewDidLoad {
@@ -327,9 +327,13 @@ Modify ```viewDidLoad``` method for initialzation a messaging.
 }
 ```
 
-We must manage the timestamp of the last message and first message. The timestamp of the last message will be used for loading next messages and the timestamp of the first message will be used for loading previous messages.
+We must manage the timestamp of the last and the first message. The timestamp of the last message will be used for loading next messages and the timestamp of the first will be used for loading the previous messages.
 
-In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.jiver.co/ref/ios/en/Classes/JiverMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:). It means that the latest messages can be fetched from JIVER server. However, while we are fetching messages, new message can be added to the messaging channel. We have to get all message including it. So we invoke [[Jiver connectWithMessageTs:LLONG_MAX]](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. New message will be returned in ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like a real-time message.
+In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.jiver.co/ref/ios/en/Classes/JiverMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:) which means that the latest messages can be fetched from JIVER server. The messaging channel, however, can receive new message while it is fetching other messages from the server. So we invoke [[Jiver connectWithMessageTs:LLONG_MAX]](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. Any new message will be passed to ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like as a real-time message.
+
+
+
+. It means that the latest messages can be fetched from JIVER server. However, while we are fetching messages, new message can be added to the messaging channel. We have to get all message including it. So we invoke [[Jiver connectWithMessageTs:LLONG_MAX]](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. New message will be returned in ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like a real-time message.
 
 ## Load previous messages
 
