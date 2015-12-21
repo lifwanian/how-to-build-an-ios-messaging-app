@@ -81,7 +81,7 @@ Insert the following code to log in and query the channels at the bottom of ```v
 
 Channel queries support pagination. Let’s try it out.
 
-The ```loadNextChannelList``` method will be invoked when the ```UITableView``` for channels draws the last row. If you scroll to the bottom of the ```UITableView```, the next page of channels will be fetched from JIVER server and attached to the bottom of the ```UITableView```.
+The ```loadNextChannelList``` method will be invoked when the ```UITableView``` for channels draws the last row. If you scroll to the bottom of the ```UITableView```, the next page of channels will be fetched from JIVER server and attached at the bottom of the ```UITableView```.
 
 Modify ```loadNextChannelList``` like this:
 
