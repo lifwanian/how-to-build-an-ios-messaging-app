@@ -347,7 +347,7 @@ If you click the **File** button, ```clickSendFileButton:``` method will be invo
 
 ## Load Previous Messages
 
-To see previous messages in the channel, implement ```loadPreviousMessages``` method. This method will be invoked when ```openChatChattingTableView`` draws the first cell. 
+To view previous messages in the channel, implement ```loadPreviousMessages``` method. This method will be invoked when ```openChatChattingTableView`` draws the first cell. 
 
 ```objectivec
 - (void) loadPreviousMessages {
