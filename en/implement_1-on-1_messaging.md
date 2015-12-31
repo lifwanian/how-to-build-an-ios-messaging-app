@@ -329,7 +329,7 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
 
 We must manage the timestamp of the last and the first message. The timestamp of the last message will be used for loading next messages and the timestamp of the first will be used for loading the previous messages.
 
-In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.inteage.com/ref/ios/en/Classes/InteageMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:) which means that the latest messages can be fetched from Inteage server. The messaging channel, however, can receive new message while it is fetching other messages from the server. So we invoke [[Inteage connectWithMessageTs:LLONG_MAX]](http://docs.inteage.com/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. Any new message will be passed to ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like as a real-time message.
+In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.inteage.com/ref/ios/en/Classes/InteageMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:) which means that the latest messages can be fetched from Inteage server. The messaging channel, however, can receive new message while it is fetching other messages from the server. So we invoke [[Inteage connectWithMessageTs:LLONG_MAX]](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. Any new message will be passed to ```messageReceivedBlock:``` of ```[Inteage setEventHandlerConnectBlock:...]``` like as a real-time message.
 
 ## Load Previous Messages
 
@@ -344,9 +344,9 @@ Modify ```loadPreviosMessage``` method to fetch previous messages.
     
     [self.prevMessageLoadingIndicator setHidden:NO];
     [self.prevMessageLoadingIndicator startAnimating];
-    [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:firstMessageTimestamp andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+    [[Inteage queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:firstMessageTimestamp andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
-        for (JiverMessage *message in queryResult) {
+        for (InteageMessage *message in queryResult) {
             if ([message isPast]) {
                 [newMessages insertObject:message atIndex:0];
             }
@@ -391,7 +391,7 @@ Modify ```loadPreviosMessage``` method to fetch previous messages.
 ```
 ## Send a Message to a Channel
 
-To send a message, modify ```sendMessage:``` method. This method is invoked by clicking the ***Send*** button or pressing the return key. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends message in real-time.
+To send a message, modify ```sendMessage:``` method. This method is invoked by clicking the ***Send*** button or pressing the return key. [Inteage sendMessage:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/sendMessage:) method sends message in real-time.
 
 ```objectivec
 - (void) sendMessage
