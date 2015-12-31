@@ -138,7 +138,7 @@ Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/d
     channelListQuery = [Inteage queryChannelList];
     [channelListQuery setQuery:[searchBar text]];
     [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
-        for (JiverChannel *channel in queryResult) {
+        for (InteageChannel *channel in queryResult) {
             [channelArray addObject:channel];
         }
         [self.openChatChannelListTableView reloadData];
@@ -148,7 +148,7 @@ Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/d
 }
 ```
 
-If you run the sample project, you can see the channels you created on the JIVER Dashboard.
+If you run the sample project, you can see the channels you created on the Inteage Dashboard.
 
 ![Channel List](./img/003_Screenshot.png) ![Channel List Querying](./img/005_Screenshot.png)
 
@@ -165,15 +165,15 @@ Modify ```startChattingWithPreviousMessage:``` method. This method is invoked wh
 ```objectivec
 - (void)startChattingWithPreviousMessage:(BOOL)tf
 {
-    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    [Jiver joinChannel:[currentChannel url]];
-    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+    [Inteage loginWithUserId:[Inteage deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    [Inteage joinChannel:[currentChannel url]];
+    [Inteage setEventHandlerConnectBlock:^(InteageChannel *channel) {
         
     } errorBlock:^(NSInteger code) {
         
-    } channelLeftBlock:^(JiverChannel *channel) {
+    } channelLeftBlock:^(InteageChannel *channel) {
         
-    } messageReceivedBlock:^(JiverMessage *message) {
+    } messageReceivedBlock:^(InteageMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
         }
@@ -189,9 +189,9 @@ Modify ```startChattingWithPreviousMessage:``` method. This method is invoked wh
             [messages addObject:message];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+    } systemMessageReceivedBlock:^(InteageSystemMessage *message) {
         
-    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+    } broadcastMessageReceivedBlock:^(InteageBroadcastMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
         }
@@ -207,7 +207,7 @@ Modify ```startChattingWithPreviousMessage:``` method. This method is invoked wh
             [messages addObject:message];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+    } fileReceivedBlock:^(InteageFileLink *fileLink) {
         if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
             lastMessageTimestamp = [fileLink getMessageTimestamp];
         }
@@ -223,37 +223,37 @@ Modify ```startChattingWithPreviousMessage:``` method. This method is invoked wh
             [messages addObject:fileLink];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+    } messagingStartedBlock:^(InteageMessagingChannel *channel) {
         UIStoryboard *storyboard = [self storyboard];
         MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
         [vc setMessagingChannel:channel];
         [vc setDelegate:self];
         [self presentViewController:vc animated:YES completion:nil];
-    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+    } messagingUpdatedBlock:^(InteageMessagingChannel *channel) {
         
-    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+    } messagingEndedBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingEndedBlock:^{
         
-    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+    } messagingHiddenBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingHiddenBlock:^{
         
-    } readReceivedBlock:^(JiverReadStatus *status) {
+    } readReceivedBlock:^(InteageReadStatus *status) {
         
-    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+    } typeStartReceivedBlock:^(InteageTypeStatus *status) {
         
-    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+    } typeEndReceivedBlock:^(InteageTypeStatus *status) {
         
-    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger inteageDataType, int count) {
         
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         
     }];
     
     if (tf) {
-        [[Jiver queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
-            for (JiverMessage *message in queryResult) {
+        [[Inteage queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+            for (InteageMessage *message in queryResult) {
                 if ([message isPast]) {
                     [messages insertObject:message atIndex:0];
                 }
@@ -272,13 +272,13 @@ Modify ```startChattingWithPreviousMessage:``` method. This method is invoked wh
             }
             [self scrollToBottomWithReloading:YES animated:NO];
             scrollLocked = NO;
-            [Jiver connectWithMessageTs:LLONG_MAX];
+            [Inteage connectWithMessageTs:LLONG_MAX];
         } endBlock:^(NSError *error) {
             
         }];
     }
     else {
-        [Jiver connect];
+        [Inteage connect];
     }
 }
 ```
