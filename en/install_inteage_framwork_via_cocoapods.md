@@ -17,7 +17,7 @@ $ pod install
 $ open <YOUR_PROJECT>.xcworkspace
 ```
 
-See this [link](https://inteage.gitbooks.io/ios-sdk/content/en/download_sdk.html) for details.
+See this [link](https://inteage.gitbooks.io/inteage-ios-sdk/content/en/download_sdk.html) for details.
 
 
 
