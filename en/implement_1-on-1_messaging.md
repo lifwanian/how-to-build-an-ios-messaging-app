@@ -188,7 +188,7 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
     // ...
     
     [Inteage loginWithUserId:[Inteage deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    [Inteage registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
+    [Inteage registerNotificationHandlerMessagingChannelUpdatedBlock:^(InteageMessagingChannel *channel) {
         if ([Inteage getCurrentChannel] != nil && [[Inteage getCurrentChannel] channelId] == [channel getId]) {
             [self updateMessagingChannel:channel];
         }
@@ -572,43 +572,43 @@ In order to display the number of users who did not read a certain message, you 
 
 ### Display Unread Count
 
-When other users send you a mark-as-read command, it is passed to ```readReceivedBlock:``` callback in ```[Jiver setEventHandlerConnectBlock:...]```. 
+When other users send you a mark-as-read command, it is passed to ```readReceivedBlock:``` callback in ```[Inteage setEventHandlerConnectBlock:...]```. 
 
 ```objectivec
-[Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+[Inteage setEventHandlerConnectBlock:^(InteageChannel *channel) {
         // ...
     } errorBlock:^(NSInteger code) {
         // ...
-    } channelLeftBlock:^(JiverChannel *channel) {
+    } channelLeftBlock:^(InteageChannel *channel) {
         // ...
-    } messageReceivedBlock:^(JiverMessage *message) {
+    } messageReceivedBlock:^(InteageMessage *message) {
         // ...
-    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+    } systemMessageReceivedBlock:^(InteageSystemMessage *message) {
         // ...
-    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+    } broadcastMessageReceivedBlock:^(InteageBroadcastMessage *message) {
         // ...
-    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+    } fileReceivedBlock:^(InteageFileLink *fileLink) {
         // ...
-    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+    } messagingStartedBlock:^(InteageMessagingChannel *channel) {
         // ...
-    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+    } messagingUpdatedBlock:^(InteageMessagingChannel *channel) {
         // ...
-    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+    } messagingEndedBlock:^(InteageMessagingChannel *channel) {
         // ...
     } allMessagingEndedBlock:^{
         // ...
-    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+    } messagingHiddenBlock:^(InteageMessagingChannel *channel) {
         // ...
     } allMessagingHiddenBlock:^{
         // ...
-    } readReceivedBlock:^(JiverReadStatus *status) {
+    } readReceivedBlock:^(InteageReadStatus *status) {
         [self setReadStatus:[[status user] guestId] andTimestamp:[status timestamp]];
         [self.messagingTableView reloadData];
-    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+    } typeStartReceivedBlock:^(InteageTypeStatus *status) {
         // ...
-    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+    } typeEndReceivedBlock:^(InteageTypeStatus *status) {
         // ...
-    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger inteageDataType, int count) {
         // ...
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         // ...
@@ -639,12 +639,12 @@ If you received a mark-as-read command, update the read status of the current ch
 When the current channel is updated by ```registerNotificationHandlerMessagingChannelUpdatedBlock:mentionUpdatedBlock:```, you have to update the read status of the channel. The following method is invoked in ```registerNotificationHandlerMessagingChannelUpdatedBlock:``` callback.
 
 ```objectivec
-- (void) updateMessagingChannel:(JiverMessagingChannel *)channel
+- (void) updateMessagingChannel:(InteageMessagingChannel *)channel
 {
     [self.navigationBarTitle setTitle:[MyUtils generateMessagingTitle:currentChannel]];
     
     NSMutableDictionary *newReadStatus = [[NSMutableDictionary alloc] init];
-    for (JiverMemberInMessagingChannel *member in [channel members]) {
+    for (InteageMemberInMessagingChannel *member in [channel members]) {
         NSNumber *currentStatus = [readStatus objectForKey:[member guestId]];
         if (currentStatus == nil) {
             currentStatus = [NSNumber numberWithLongLong:0];
@@ -678,14 +678,14 @@ Open ```MessagingChannelListViewController.m``` in Xcode.
 
 The messaging channel list will be updated whenever each channel is updated. Each channel item in the list includes a title which consists of its members, the member count, the last message in the channel, the date of the last message and the unread message count.
 
-```startJiver``` method is invoked when the messaging tab is selected and ```prepareCloseMessagingViewController``` of ```MessagingViewControllerDelegate``` and ```prepareCloseMessagingInviteSelectChannelViewController``` of ```MessagingInviteSelectChannelViewControllerDelegate``` are invoked. ```registerNotificationHandlerMessagingChannelUpdatedBlock``` callback returns an updated messaging channel, which should be used to update the corresponding channel.
+```startInteage``` method is invoked when the messaging tab is selected and ```prepareCloseMessagingViewController``` of ```MessagingViewControllerDelegate``` and ```prepareCloseMessagingInviteSelectChannelViewController``` of ```MessagingInviteSelectChannelViewControllerDelegate``` are invoked. ```registerNotificationHandlerMessagingChannelUpdatedBlock``` callback returns an updated messaging channel, which should be used to update the corresponding channel.
 
 ```objectivec
-- (void) startJiver
+- (void) startInteage
 {
-    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    [Jiver registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
-        for (JiverMessagingChannel *oldChannel in channelArray) {
+    [Inteage loginWithUserId:[Inteage deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    [Inteage registerNotificationHandlerMessagingChannelUpdatedBlock:^(InteageMessagingChannel *channel) {
+        for (InteageMessagingChannel *oldChannel in channelArray) {
             if ([oldChannel getId] == [channel getId]) {
                 [channelArray removeObject:oldChannel];
                 break;
@@ -694,12 +694,12 @@ The messaging channel list will be updated whenever each channel is updated. Eac
         [channelArray insertObject:channel atIndex:0];
         [self.messagingChannelListTableView reloadData];
     }
-    mentionUpdatedBlock:^(JiverMention *mention) {
+    mentionUpdatedBlock:^(InteageMention *mention) {
 
     }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        messagingChannelListQuery = [Jiver queryMessagingChannelList];
+        messagingChannelListQuery = [Inteage queryMessagingChannelList];
         [messagingChannelListQuery setLimit:15];
         if ([messagingChannelListQuery hasNext]) {
             [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
@@ -710,8 +710,8 @@ The messaging channel list will be updated whenever each channel is updated. Eac
                 
             }];
         }
-        [Jiver joinChannel:@""];
-        [Jiver connect];
+        [Inteage joinChannel:@""];
+        [Inteage connect];
     });
 }
 ```
@@ -721,7 +721,7 @@ When the channel is clicked ```MessagingViewController``` has to be open.
 ```objectivec
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JiverMessagingChannel *channel = (JiverMessagingChannel *)[channelArray objectAtIndex:[indexPath row]];
+    InteageMessagingChannel *channel = (InteageMessagingChannel *)[channelArray objectAtIndex:[indexPath row]];
     
     UIStoryboard *storyboard = [self storyboard];
     MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
