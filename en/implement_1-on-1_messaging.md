@@ -1,6 +1,6 @@
 # Implement 1-on-1 Messaging
 
-1-on-1 messaging requires two users. JIVER identifies each user by User ID. The sample project provides a feature for 1-on-1 messaging where a user can invite another user by obtaining ***User ID*** in the open chat channel.
+1-on-1 messaging requires two users. Inteage identifies each user by User ID. The sample project provides a feature for 1-on-1 messaging where a user can invite another user by obtaining ***User ID*** in the open chat channel.
 
 ## Start Messaging
 
@@ -19,17 +19,17 @@ Implement [tableView:didSelectRowAtIndexPath:](https://developer.apple.com/libra
     UIAlertAction *messageAction;
     UIAlertAction *messageCancelAction;
 
-    if ([[messages objectAtIndex:indexPath.row] isKindOfClass:[JiverMessage class]]) {
-        JiverMessage *message = (JiverMessage *)[messages objectAtIndex:indexPath.row];
+    if ([[messages objectAtIndex:indexPath.row] isKindOfClass:[InteageMessage class]]) {
+        InteageMessage *message = (InteageMessage *)[messages objectAtIndex:indexPath.row];
         
-        if ([[[message sender] guestId] isEqualToString:[Jiver getUserId]]) {
+        if ([[[message sender] guestId] isEqualToString:[Inteage getUserId]]) {
             return;
         }
         
         NSString *actionTitle = [NSString stringWithFormat:@"Start messaging with %@", [message getSenderName]];
         messageSubMenu = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         messageAction = [UIAlertAction actionWithTitle:actionTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [Jiver startMessagingWithUserId:[[message sender] guestId]];
+            [Inteage startMessagingWithUserId:[[message sender] guestId]];
         }];
         messageCancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
         [messageSubMenu addAction:messageAction];
@@ -48,7 +48,7 @@ You can see ```UIAlertController``` when you click other's messages in the open 
 ![UIAlertController for starting messaging](img/007_Screenshot.png)
 
 
-If you click "Start messaging with OPPONENT_NAME", then [Jiver startMessagingWithUserId:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/startMessagingWithUserId:) is invoked. When it is invoked, the callback [messagingStartedBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:) will be invoked as well. The callback returns [JiverMessagingChannel](http://docs.jiver.co/ref/ios/en/Classes/JiverMessagingChannel.html) object, which allows the user to join the 1-on-1 messaging channel.
+If you click "Start messaging with OPPONENT_NAME", then [Inteage startMessagingWithUserId:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/startMessagingWithUserId:) is invoked. When it is invoked, the callback [messagingStartedBlock:](http://docs.inteage.com/ref/ios/en/Classes/Jiver.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:) will be invoked as well. The callback returns [JiverMessagingChannel](http://docs.jiver.co/ref/ios/en/Classes/JiverMessagingChannel.html) object, which allows the user to join the 1-on-1 messaging channel.
 
 You should insert codes for joining a channel in [messagingStartedBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:). Refer to the codes in ```messagingStartedBlock:``` for details.
  
