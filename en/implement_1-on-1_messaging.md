@@ -142,8 +142,8 @@ You should insert codes for joining a channel in [messagingStartedBlock:](http:/
     }];
     
     if (tf) {
-        [[Jiver queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
-            for (JiverMessage *message in queryResult) {
+        [[Inteage queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+            for (InteageMessage *message in queryResult) {
                 if ([message isPast]) {
                     [messages insertObject:message atIndex:0];
                 }
@@ -162,13 +162,13 @@ You should insert codes for joining a channel in [messagingStartedBlock:](http:/
             }
             [self scrollToBottomWithReloading:YES animated:NO];
             scrollLocked = NO;
-            [Jiver connectWithMessageTs:LLONG_MAX];
+            [Inteage connectWithMessageTs:LLONG_MAX];
         } endBlock:^(NSError *error) {
             
         }];
     }
     else {
-        [Jiver connect];
+        [Inteage connect];
     }
 }
 ```
@@ -187,22 +187,22 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
 - (void)viewDidLoad {
     // ...
     
-    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    [Jiver registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
-        if ([Jiver getCurrentChannel] != nil && [[Jiver getCurrentChannel] channelId] == [channel getId]) {
+    [Inteage loginWithUserId:[Inteage deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    [Inteage registerNotificationHandlerMessagingChannelUpdatedBlock:^(JiverMessagingChannel *channel) {
+        if ([Inteage getCurrentChannel] != nil && [[Inteage getCurrentChannel] channelId] == [channel getId]) {
             [self updateMessagingChannel:channel];
         }
     }
-    mentionUpdatedBlock:^(JiverMention *mention) {
+    mentionUpdatedBlock:^(InteageMention *mention) {
        
     }];
-    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
-        [Jiver markAsRead];
+    [Inteage setEventHandlerConnectBlock:^(InteageChannel *channel) {
+        [Inteage markAsRead];
     } errorBlock:^(NSInteger code) {
         
-    } channelLeftBlock:^(JiverChannel *channel) {
+    } channelLeftBlock:^(InteageChannel *channel) {
         
-    } messageReceivedBlock:^(JiverMessage *message) {
+    } messageReceivedBlock:^(InteageMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
         }
@@ -219,8 +219,8 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
         }
         [self scrollToBottomWithReloading:YES animated:NO];
         
-        [Jiver markAsRead];
-    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+        [Inteage markAsRead];
+    } systemMessageReceivedBlock:^(InteageSystemMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
         }
@@ -237,8 +237,8 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
         }
         [self scrollToBottomWithReloading:YES animated:NO];
         
-        [Jiver markAsRead];
-    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+        [Inteage markAsRead];
+    } broadcastMessageReceivedBlock:^(InteageBroadcastMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
         }
@@ -255,8 +255,8 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
         }
         [self scrollToBottomWithReloading:YES animated:NO];
         
-        [Jiver markAsRead];
-    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+        [Inteage markAsRead];
+    } fileReceivedBlock:^(InteageFileLink *fileLink) {
         if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
             lastMessageTimestamp = [fileLink getMessageTimestamp];
         }
@@ -269,13 +269,13 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
         }
         [self scrollToBottomWithReloading:YES animated:NO];
         
-        [Jiver markAsRead];
-    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+        [Inteage markAsRead];
+    } messagingStartedBlock:^(InteageMessagingChannel *channel) {
         currentChannel = channel;
         [self updateMessagingChannel:channel];
         
-        [[Jiver queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
-            for (JiverMessage *message in queryResult) {
+        [[Inteage queryMessageListInChannel:[currentChannel getUrl]] prevWithMessageTs:LLONG_MAX andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+            for (InteageMessage *message in queryResult) {
                 if ([message isPast]) {
                     [messages insertObject:message atIndex:0];
                 }
@@ -292,33 +292,33 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
                 }
             }
             [self scrollToBottomWithReloading:YES animated:NO];
-            [Jiver joinChannel:[currentChannel getUrl]];
+            [Inteage joinChannel:[currentChannel getUrl]];
             scrollLocked = NO;
-            [Jiver connectWithMessageTs:LLONG_MAX];
+            [Inteage connectWithMessageTs:LLONG_MAX];
         } endBlock:^(NSError *error) {
             
         }];
-    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+    } messagingUpdatedBlock:^(InteageMessagingChannel *channel) {
         currentChannel = channel;
         [self updateMessagingChannel:channel];
-    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+    } messagingEndedBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingEndedBlock:^{
         
-    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+    } messagingHiddenBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingHiddenBlock:^{
         
-    } readReceivedBlock:^(JiverReadStatus *status) {
+    } readReceivedBlock:^(InteageReadStatus *status) {
         [self setReadStatus:[[status user] guestId] andTimestamp:[status timestamp]];
         [self.messagingTableView reloadData];
-    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+    } typeStartReceivedBlock:^(InteageTypeStatus *status) {
         [self setTypeStatus:[[status user] guestId] andTimestamp:[status timestamp]];
         [self showTyping];
-    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+    } typeEndReceivedBlock:^(InteageTypeStatus *status) {
         [self setTypeStatus:[[status user] guestId] andTimestamp:0];
         [self showTyping];
-    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger inteageDataType, int count) {
         
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         
