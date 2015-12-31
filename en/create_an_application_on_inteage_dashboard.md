@@ -8,6 +8,6 @@ You must first create an application on Inteage Dashboard before being able to u
 
 You can see the **APP ID** of your application on the dashboard:
 
-![APP ID on Inteage Dashboard](./img/002_JIVER_-_Dashboard.png)
+![APP ID on Inteage Dashboard](./img/002_Inteage_-_Dashboard.png)
 
 The **APP ID** is required to initialize the iOS framework.
