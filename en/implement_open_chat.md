@@ -295,7 +295,7 @@ Insert the following code to start the open chat at the bottom of ```viewDidLoad
 }
 ```
 
-To send a message, modify ```sendMessage``` method. This method is invoked by clicking the “Send” button or pressing the return key. [Jiver sendMessage:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendMessage:) method sends ```message``` in real-time.
+To send a message, modify ```sendMessage``` method. This method is invoked by clicking the “Send” button or pressing the return key. [Inteage sendMessage:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/sendMessage:) method sends ```message``` in real-time.
 
 ```objectivec
 - (void) sendMessage
@@ -303,13 +303,13 @@ To send a message, modify ```sendMessage``` method. This method is invoked by cl
     NSString *message = [self.messageTextField text];
     if ([message length] > 0) {
         [self.messageTextField setText:@""];
-        [Jiver sendMessage:message];
+        [Inteage sendMessage:message];
     }
     scrollLocked = NO;
 }
 ```
 
-If you click the **File** button, ```clickSendFileButton:``` method will be invoked to open [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/). Since [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/) is used to select an image to send, modify the following method. [Jiver uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:) which uploads the ```imageFileData``` to Inteage server. This method returns [InteageFileInfo](http://docs.inteage.com/ref/ios/en/Classes/InteageFileInfo.html) object which can be sent through [Inteage sendFile:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/sendFile:).
+If you click the **File** button, ```clickSendFileButton:``` method will be invoked to open [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/). Since [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/) is used to select an image to send, modify the following method. [Inteage uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:) which uploads the ```imageFileData``` to Inteage server. This method returns [InteageFileInfo](http://docs.inteage.com/ref/ios/en/Classes/InteageFileInfo.html) object which can be sent through [Inteage sendFile:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/sendFile:).
 
 ```objectivec
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
