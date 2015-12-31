@@ -2,7 +2,7 @@
     "styles": {
         "website": "styles/website.css"
     },
-    "plugins": ["ga"],
+    "plugins": ["ga", "redirect"],
     "pluginsConfig": {
         "ga": {
             "token": "UA-39104662-19"
