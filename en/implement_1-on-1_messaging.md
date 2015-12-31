@@ -50,20 +50,20 @@ You can see ```UIAlertController``` when you click other's messages in the open 
 
 If you click "Start messaging with OPPONENT_NAME", then [Inteage startMessagingWithUserId:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/startMessagingWithUserId:) is invoked. When it is invoked, the callback [messagingStartedBlock:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:) will be invoked as well. The callback returns [InteageMessagingChannel](http://docs.inteage.com/ref/ios/en/Classes/InteageMessagingChannel.html) object, which allows the user to join the 1-on-1 messaging channel.
 
-You should insert codes for joining a channel in [messagingStartedBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:). Refer to the codes in ```messagingStartedBlock:``` for details.
+You should insert codes for joining a channel in [messagingStartedBlock:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/setEventHandlerConnectBlock:errorBlock:channelLeftBlock:messageReceivedBlock:systemMessageReceivedBlock:broadcastMessageReceivedBlock:fileReceivedBlock:messagingStartedBlock:messagingUpdatedBlock:messagingEndedBlock:allMessagingEndedBlock:messagingHiddenBlock:allMessagingHiddenBlock:readReceivedBlock:typeStartReceivedBlock:typeEndReceivedBlock:allDataReceivedBlock:messageDeliveryBlock:). Refer to the codes in ```messagingStartedBlock:``` for details.
  
 ```objectivec
 - (void)startChattingWithPreviousMessage:(BOOL)tf
 {
-    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    [Jiver joinChannel:[currentChannel url]];
-    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+    [Inteage loginWithUserId:[Inteage deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    [Inteage joinChannel:[currentChannel url]];
+    [Inteage setEventHandlerConnectBlock:^(InteageChannel *channel) {
         
     } errorBlock:^(NSInteger code) {
         
-    } channelLeftBlock:^(JiverChannel *channel) {
+    } channelLeftBlock:^(InteageChannel *channel) {
         
-    } messageReceivedBlock:^(JiverMessage *message) {
+    } messageReceivedBlock:^(InteageMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
         }
@@ -79,9 +79,9 @@ You should insert codes for joining a channel in [messagingStartedBlock:](http:/
             [messages addObject:message];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+    } systemMessageReceivedBlock:^(InteageSystemMessage *message) {
         
-    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+    } broadcastMessageReceivedBlock:^(InteageBroadcastMessage *message) {
         if (lastMessageTimestamp < [message getMessageTimestamp]) {
             lastMessageTimestamp = [message getMessageTimestamp];
         }
@@ -97,7 +97,7 @@ You should insert codes for joining a channel in [messagingStartedBlock:](http:/
             [messages addObject:message];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+    } fileReceivedBlock:^(InteageFileLink *fileLink) {
         if (lastMessageTimestamp < [fileLink getMessageTimestamp]) {
             lastMessageTimestamp = [fileLink getMessageTimestamp];
         }
@@ -113,29 +113,29 @@ You should insert codes for joining a channel in [messagingStartedBlock:](http:/
             [messages addObject:fileLink];
         }
         [self scrollToBottomWithReloading:YES animated:NO];
-    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+    } messagingStartedBlock:^(InteageMessagingChannel *channel) {
         UIStoryboard *storyboard = [self storyboard];
         MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
         [vc setMessagingChannel:channel];
         [vc setDelegate:self];
         [self presentViewController:vc animated:YES completion:nil];
-    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+    } messagingUpdatedBlock:^(InteageMessagingChannel *channel) {
         
-    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+    } messagingEndedBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingEndedBlock:^{
         
-    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+    } messagingHiddenBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingHiddenBlock:^{
         
-    } readReceivedBlock:^(JiverReadStatus *status) {
+    } readReceivedBlock:^(InteageReadStatus *status) {
         
-    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+    } typeStartReceivedBlock:^(InteageTypeStatus *status) {
         
-    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+    } typeEndReceivedBlock:^(InteageTypeStatus *status) {
         
-    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger inteageDataType, int count) {
         
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         
