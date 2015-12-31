@@ -1,10 +1,10 @@
 # Implement Open Chat
 
-## Create Channels on JIVER Dashboard
+## Create Channels on Inteage Dashboard
 
 You have to create channels in order to implement open chat in your application.
 
-1. Sign in at [JIVER Dashboard](https://dashboard.jiver.co).
+1. Sign in at [Inteage Dashboard](https://dashboard.inteage.com).
 2. Select **APPLICATION** on the side menu and click on your app.
 3. Click **CHANNELS** tab.
 4. Click **CREATE CHANNEL** button.
@@ -12,18 +12,18 @@ You have to create channels in order to implement open chat in your application.
 6. Click **CREATE** button.
 
  
-## Initialize JIVER Framework
+## Initialize Inteage Framework
 
 Open the sample project and **AppDelegate.m** in Xcode.
 
 ![AppDelegate.m](./img/001_AppDelegate_m.png)
 
-Initialize JIVER framework in ```application:didFinishLaunchingWithOptions:```
+Initialize Inteage framework in ```application:didFinishLaunchingWithOptions:```
 
 ```objectivec
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Jiver initAppId:@"<YOUR_APP_ID>"];
+    [Inteage initAppId:@"<YOUR_APP_ID>"];
     
     return YES;
 }
@@ -35,13 +35,13 @@ Open **OpenChatChannelListViewController.m** in Xcode.
 
 ![OpenChatChannelListViewController.m](./img/002_OpenChatChannelListViewController_m.png)
 
-Add [JiverChannelListQuery](http://docs.jiver.co/ref/ios/en/Classes/JiverChannelListQuery.html) object for querying the channels.
+Add [InteageChannelListQuery](http://docs.inteage.com/ref/ios/en/Classes/InteageChannelListQuery.html) object for querying the channels.
 
 ```objectivec
 @interface OpenChatChannelListViewController ()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     NSMutableArray *channelArray;
     BOOL isLoadingChannel;
-    JiverChannelListQuery *channelListQuery;
+    InteageChannelListQuery *channelListQuery;
 }
 ```
 
@@ -64,10 +64,10 @@ Insert the following code to log in and query the channels at the bottom of ```v
     
     [self.openChatChannelListLoadingIndicator setHidden:YES];
 
-    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    channelListQuery = [Jiver queryChannelList];
+    [Inteage loginWithUserId:[Inteage deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    channelListQuery = [Inteage queryChannelList];
     [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
-        for (JiverChannel *channel in queryResult) {
+        for (InteageChannel *channel in queryResult) {
             [channelArray addObject:channel];
         }
         [self.openChatChannelListTableView reloadData];
@@ -77,11 +77,11 @@ Insert the following code to log in and query the channels at the bottom of ```v
 }
 ```
 
-**User ID** is used to identify users in your application. This project uses device ID(IDFV) as **User ID**. If there isn’t the user which has the user ID, JIVER will generate one.
+**User ID** is used to identify users in your application. This project uses device ID(IDFV) as **User ID**. If there isn’t the user which has the user ID, Inteage will generate one.
 
 Channel queries support pagination. Let’s try it out.
 
-The ```loadNextChannelList``` method will be invoked when the ```UITableView``` for channels draws the last row. If you scroll to the bottom of the ```UITableView```, the next page of channels will be fetched from JIVER server and attached at the bottom of the ```UITableView```.
+The ```loadNextChannelList``` method will be invoked when the ```UITableView``` for channels draws the last row. If you scroll to the bottom of the ```UITableView```, the next page of channels will be fetched from Inteage server and attached at the bottom of the ```UITableView```.
 
 Modify ```loadNextChannelList``` like this:
 
@@ -98,7 +98,7 @@ Modify ```loadNextChannelList``` like this:
     isLoadingChannel = YES;
     
     [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
-        for (JiverChannel *channel in queryResult) {
+        for (InteageChannel *channel in queryResult) {
             [channelArray addObject:channel];
         }
         [self.openChatChannelListTableView reloadData];
@@ -111,7 +111,7 @@ Modify ```loadNextChannelList``` like this:
 
 ## Channel Search
 
-JIVER supports channel search which is implemented at ```UISearchBar``` in the sample project.
+Inteage supports channel search which is implemented at ```UISearchBar``` in the sample project.
 
 Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBarSearchButtonClicked:) to query with a keyword and [searchBarCancelButtonClicked:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBarCancelButtonClicked:) to clear the result.
 
@@ -120,10 +120,10 @@ Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/d
 {
     [channelArray removeAllObjects];
     [searchBar setText:@""];
-    channelListQuery = [Jiver queryChannelList];
+    channelListQuery = [Inteage queryChannelList];
     [channelListQuery setQuery:@""];
     [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
-        for (JiverChannel *channel in queryResult) {
+        for (InteageChannel *channel in queryResult) {
             [channelArray addObject:channel];
         }
         [self.openChatChannelListTableView reloadData];
@@ -135,7 +135,7 @@ Modify [searchBarSearchButtonClicked:](https://developer.apple.com/library/ios/d
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [channelArray removeAllObjects];
-    channelListQuery = [Jiver queryChannelList];
+    channelListQuery = [Inteage queryChannelList];
     [channelListQuery setQuery:[searchBar text]];
     [channelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
         for (JiverChannel *channel in queryResult) {
@@ -309,7 +309,7 @@ To send a message, modify ```sendMessage``` method. This method is invoked by cl
 }
 ```
 
-If you click the **File** button, ```clickSendFileButton:``` method will be invoked to open [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/). Since [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/) is used to select an image to send, modify the following method. [Jiver uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:) which uploads the ```imageFileData``` to JIVER server. This method returns [JiverFileInfo](http://docs.jiver.co/ref/ios/en/Classes/JiverFileInfo.html) object which can be sent through [Jiver sendFile:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendFile:).
+If you click the **File** button, ```clickSendFileButton:``` method will be invoked to open [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/). Since [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/) is used to select an image to send, modify the following method. [Jiver uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:) which uploads the ```imageFileData``` to Inteage server. This method returns [InteageFileInfo](http://docs.inteage.com/ref/ios/en/Classes/InteageFileInfo.html) object which can be sent through [Inteage sendFile:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/sendFile:).
 
 ```objectivec
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -336,9 +336,9 @@ If you click the **File** button, ```clickSendFileButton:``` method will be invo
             imagePath = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
             imageName = [imagePath lastPathComponent];
             
-            [Jiver uploadFile:imageFileData type:@"image/jpg" hasSizeOfFile:[imageFileData length] withCustomField:@"" uploadBlock:^(JiverFileInfo *fileInfo, NSError *error) {
+            [Inteage uploadFile:imageFileData type:@"image/jpg" hasSizeOfFile:[imageFileData length] withCustomField:@"" uploadBlock:^(InteageFileInfo *fileInfo, NSError *error) {
                 openImagePicker = NO;
-                [Jiver sendFile:fileInfo];
+                [Inteage sendFile:fileInfo];
             }];
         }
     }];
@@ -358,9 +358,9 @@ To view previous messages in the channel, implement ```loadPreviousMessages``` m
 
     [self.prevMessageLoadingIndicator setHidden:NO];
     [self.prevMessageLoadingIndicator startAnimating];
-    [[Jiver queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:firstMessageTimestamp andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
+    [[Inteage queryMessageListInChannel:[currentChannel url]] prevWithMessageTs:firstMessageTimestamp andLimit:50 resultBlock:^(NSMutableArray *queryResult) {
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
-        for (JiverMessage *message in queryResult) {
+        for (InteageMessage *message in queryResult) {
             if ([message isPast]) {
                 [newMessages insertObject:message atIndex:0];
             }
@@ -405,6 +405,6 @@ To view previous messages in the channel, implement ```loadPreviousMessages``` m
 
 ## Run Sample Project
 
-Build the project, join a channel and send a message. You need two devices or one device and an iOS simulator for testing. If you don’t have an extra device, you can use **OPERATIONS** on **JIVER Dashboard** to chat using an iOS simulator.
+Build the project, join a channel and send a message. You need two devices or one device and an iOS simulator for testing. If you don’t have an extra device, you can use **OPERATIONS** on **Inteage Dashboard** to chat using an iOS simulator.
  
 ![Run the project](img/006_Screenshot.png)
