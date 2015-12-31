@@ -21,53 +21,53 @@ The callback block is required to get the messaging channel after inviting users
 - (void)viewDidLoad {
     // ...
     
-    [Jiver loginWithUserId:[Jiver deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
-    memberListQuery = [Jiver queryMemberListInChannel:[selectedChannel url]];
+    [Inteage loginWithUserId:[Inteage deviceUniqueID] andUserName:[MyUtils getUserName] andUserImageUrl:[MyUtils getUserProfileImage] andAccessToken:@""];
+    memberListQuery = [Inteage queryMemberListInChannel:[selectedChannel url]];
     [memberListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
-        for (JiverMember *user in queryResult) {
+        for (InteageMember *user in queryResult) {
             [userArray addObject:user];
         }
         [self.messagingInviteSelectUserTableView reloadData];
     } endBlock:^(NSError *error) {
 
     }];
-    [Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
+    [Inteage setEventHandlerConnectBlock:^(InteageChannel *channel) {
         
     } errorBlock:^(NSInteger code) {
         
-    } channelLeftBlock:^(JiverChannel *channel) {
+    } channelLeftBlock:^(InteageChannel *channel) {
         
-    } messageReceivedBlock:^(JiverMessage *message) {
+    } messageReceivedBlock:^(InteageMessage *message) {
         
-    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+    } systemMessageReceivedBlock:^(InteageSystemMessage *message) {
         
-    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+    } broadcastMessageReceivedBlock:^(InteageBroadcastMessage *message) {
         
-    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+    } fileReceivedBlock:^(InteageFileLink *fileLink) {
         
-    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+    } messagingStartedBlock:^(InteageMessagingChannel *channel) {
         UIStoryboard *storyboard = [self storyboard];
         MessagingViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"MessagingViewController"];
         [vc setMessagingChannel:channel];
         [vc setDelegate:self];
         [self presentViewController:vc animated:YES completion:nil];
-    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+    } messagingUpdatedBlock:^(InteageMessagingChannel *channel) {
         
-    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+    } messagingEndedBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingEndedBlock:^{
         
-    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+    } messagingHiddenBlock:^(InteageMessagingChannel *channel) {
         
     } allMessagingHiddenBlock:^{
         
-    } readReceivedBlock:^(JiverReadStatus *status) {
+    } readReceivedBlock:^(InteageReadStatus *status) {
         
-    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+    } typeStartReceivedBlock:^(InteageTypeStatus *status) {
         
-    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+    } typeEndReceivedBlock:^(InteageTypeStatus *status) {
         
-    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger inteageDataType, int count) {
         
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         
@@ -86,7 +86,7 @@ You have to modify ```inviteUsers:``` method in order to invite multiple users.
     }
     
     if ([userIds count] > 0) {
-        [Jiver startMessagingWithUserIds:userIds];
+        [Inteage startMessagingWithUserIds:userIds];
     }
 }
 ```
