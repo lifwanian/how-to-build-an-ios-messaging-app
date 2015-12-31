@@ -323,13 +323,13 @@ Modify ```viewDidLoad``` method to initialze the messaging system.
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         
     }];
-    [Jiver joinMessagingWithChannelUrl:[currentChannel getUrl]];
+    [Inteage joinMessagingWithChannelUrl:[currentChannel getUrl]];
 }
 ```
 
 We must manage the timestamp of the last and the first message. The timestamp of the last message will be used for loading next messages and the timestamp of the first will be used for loading the previous messages.
 
-In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.jiver.co/ref/ios/en/Classes/JiverMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:) which means that the latest messages can be fetched from JIVER server. The messaging channel, however, can receive new message while it is fetching other messages from the server. So we invoke [[Jiver connectWithMessageTs:LLONG_MAX]](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. Any new message will be passed to ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like as a real-time message.
+In the above code we used LLONG_MAX value for [prevWithMessageTs:](http://docs.inteage.com/ref/ios/en/Classes/InteageMessageListQuery.html#//api/name/prevWithMessageTs:andLimit:resultBlock:endBlock:) which means that the latest messages can be fetched from Inteage server. The messaging channel, however, can receive new message while it is fetching other messages from the server. So we invoke [[Inteage connectWithMessageTs:LLONG_MAX]](http://docs.inteage.com/ref/ios/en/Classes/Jiver.html#//api/name/connectWithMessageTs:) in ```resultBlock:```. Any new message will be passed to ```messageReceivedBlock:``` of ```[Jiver setEventHandlerConnectBlock:...]``` like as a real-time message.
 
 ## Load Previous Messages
 
