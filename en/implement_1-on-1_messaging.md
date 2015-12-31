@@ -406,7 +406,7 @@ To send a message, modify ```sendMessage:``` method. This method is invoked by c
 }
 ```
 
-If you click the ***File*** button, ```clickSendFileButton:``` method will be invoked to open [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/). Since [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/) is used to select an image to send, modify the following method - [Inteage uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:) which uploads ```imageFileData``` to Inteage server. This method returns [InteageFileInfo](http://docs.inteage.com/ref/ios/en/Classes/InteageFileInfo.html) object which can be sent through Jiver [Jiver sendFile:](http://docs.jiver.co/ref/ios/en/Classes/Jiver.html#//api/name/sendFile:).
+If you click the ***File*** button, ```clickSendFileButton:``` method will be invoked to open [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/). Since [UIImagePickerController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImagePickerController_Class/) is used to select an image to send, modify the following method - [Inteage uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/uploadFile:type:hasSizeOfFile:withCustomField:uploadBlock:) which uploads ```imageFileData``` to Inteage server. This method returns [InteageFileInfo](http://docs.inteage.com/ref/ios/en/Classes/InteageFileInfo.html) object which can be sent through Inteage [Inteage sendFile:](http://docs.inteage.com/ref/ios/en/Classes/Inteage.html#//api/name/sendFile:).
 
 ```objectivec
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -433,9 +433,9 @@ If you click the ***File*** button, ```clickSendFileButton:``` method will be in
             imagePath = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
             imageName = [imagePath lastPathComponent];
             
-            [Jiver uploadFile:imageFileData type:@"image/jpg" hasSizeOfFile:[imageFileData length] withCustomField:@"" uploadBlock:^(JiverFileInfo *fileInfo, NSError *error) {
+            [Inteage uploadFile:imageFileData type:@"image/jpg" hasSizeOfFile:[imageFileData length] withCustomField:@"" uploadBlock:^(InteageFileInfo *fileInfo, NSError *error) {
                 openImagePicker = NO;
-                [Jiver sendFile:fileInfo];
+                [Inteage sendFile:fileInfo];
             }];
         }
     }];
@@ -454,24 +454,24 @@ When a message is being entered in ```UITextField```, send a command to notify t
 - (void) textFieldDidChange:(UITextView *)textView
 {
     if ([[textView text] length] > 0) {
-        [Jiver typeStart];
+        [Inteage typeStart];
     }
     else {
-        [Jiver typeEnd];
+        [Inteage typeEnd];
     }
 }
 ```
 
 ### Receive Typing Status
 
-You can receive the typing status of other users in the same channel in callback blocks. ```[Jiver setEventHandlerConnectBlock:...``` includes these callbacks. 
+You can receive the typing status of other users in the same channel in callback blocks. ```[Inteage setEventHandlerConnectBlock:...``` includes these callbacks. 
 
 ```objectivec
     //...
-    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+    } typeStartReceivedBlock:^(InteageTypeStatus *status) {
         [self setTypeStatus:[[status user] guestId] andTimestamp:[status timestamp]];
         [self showTyping];
-    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+    } typeEndReceivedBlock:^(InteageTypeStatus *status) {
         [self setTypeStatus:[[status user] guestId] andTimestamp:0];
         [self showTyping];
     }
@@ -527,43 +527,43 @@ The typing indicator is at the bottom of the message table view.
 In order to display the number of users who did not read a certain message, you have to send the mark-as-read command whenever you receive message.
 
 ```objectivec
-[Jiver setEventHandlerConnectBlock:^(JiverChannel *channel) {
-        [Jiver markAsRead];
+[Inteage setEventHandlerConnectBlock:^(InteageChannel *channel) {
+        [Inteage markAsRead];
     } errorBlock:^(NSInteger code) {
         
-    } channelLeftBlock:^(JiverChannel *channel) {
+    } channelLeftBlock:^(InteageChannel *channel) {
         
-    } messageReceivedBlock:^(JiverMessage *message) {
+    } messageReceivedBlock:^(InteageMessage *message) {
         // ...
-        [Jiver markAsRead];
-    } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
+        [Inteage markAsRead];
+    } systemMessageReceivedBlock:^(InteageSystemMessage *message) {
         // ...
-        [Jiver markAsRead];
-    } broadcastMessageReceivedBlock:^(JiverBroadcastMessage *message) {
+        [Inteage markAsRead];
+    } broadcastMessageReceivedBlock:^(InteageBroadcastMessage *message) {
         // ...
-        [Jiver markAsRead];
-    } fileReceivedBlock:^(JiverFileLink *fileLink) {
+        [Inteage markAsRead];
+    } fileReceivedBlock:^(InteageFileLink *fileLink) {
         // ...
-        [Jiver markAsRead];
-    } messagingStartedBlock:^(JiverMessagingChannel *channel) {
+        [Inteage markAsRead];
+    } messagingStartedBlock:^(InteageMessagingChannel *channel) {
         // ...
-    } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
+    } messagingUpdatedBlock:^(InteageMessagingChannel *channel) {
         // ...
-    } messagingEndedBlock:^(JiverMessagingChannel *channel) {
+    } messagingEndedBlock:^(InteageMessagingChannel *channel) {
         // ...
     } allMessagingEndedBlock:^{
         // ...
-    } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+    } messagingHiddenBlock:^(InteageMessagingChannel *channel) {
         // ...
     } allMessagingHiddenBlock:^{
         // ...
-    } readReceivedBlock:^(JiverReadStatus *status) {
+    } readReceivedBlock:^(InteageReadStatus *status) {
         // ...
-    } typeStartReceivedBlock:^(JiverTypeStatus *status) {
+    } typeStartReceivedBlock:^(InteageTypeStatus *status) {
         // ...
-    } typeEndReceivedBlock:^(JiverTypeStatus *status) {
+    } typeEndReceivedBlock:^(InteageTypeStatus *status) {
         // ...
-    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger inteageDataType, int count) {
         // ...
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         // ...
