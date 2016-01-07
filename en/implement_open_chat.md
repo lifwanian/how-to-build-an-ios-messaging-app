@@ -1,3 +1,5 @@
+!REDIRECT "https://sendbird.gitbooks.io/how-to-build-an-ios-messaging-app/content/en/implement_open_chat.html"
+
 # Implement Open Chat
 
 ## Create Channels on Inteage Dashboard
