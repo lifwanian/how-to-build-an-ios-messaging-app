@@ -1,4 +1,5 @@
 !REDIRECT "https://sendbird.gitbooks.io/how-to-build-an-ios-messaging-app/content/en/about_sample_project.html"
+
 # About Sample Project
 
 ## Download Sample Project
