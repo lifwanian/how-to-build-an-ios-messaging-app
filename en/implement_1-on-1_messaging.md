@@ -1,3 +1,5 @@
+!REDIRECT "https://sendbird.gitbooks.io/how-to-build-an-ios-messaging-app/content/en/implement_1-on-1_messaging.html"
+
 # Implement 1-on-1 Messaging
 
 1-on-1 messaging requires two users. Inteage identifies each user by User ID. The sample project provides a feature for 1-on-1 messaging where a user can invite another user by obtaining ***User ID*** in the open chat channel.
