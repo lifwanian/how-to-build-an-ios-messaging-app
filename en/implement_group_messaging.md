@@ -1,3 +1,5 @@
+!REDIRECT "https://sendbird.gitbooks.io/how-to-build-an-ios-messaging-app/content/en/implement_group_messaging.html"
+
 # Implement Group Messaging
 
 Group messaging is an extended concept of 1-on-1 messaging. It also comes with features for inviting users, a typing indicator and an unread message count.
