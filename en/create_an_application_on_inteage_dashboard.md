@@ -1,3 +1,4 @@
+!REDIRECT "https://sendbird.gitbooks.io/how-to-build-an-ios-messaging-app/content/en/create_an_application_on_sendbird_dashboard.html"
 # Create an Application on Inteage Dashboard
 
 You must first create an application on Inteage Dashboard before being able to using it for your project. 
