@@ -1,3 +1,4 @@
+!REDIRECT "https://sendbird.gitbooks.io/how-to-build-an-ios-messaging-app/content/en/install_sendbird_framwork_via_cocoapods.html"
 # Install Inteage Framework via CocoaPods
 
 The latest version of Inteage iOS framework is already included in the project, so you don’t have to install it again. If you’d like to install the framework for your own project, follow the steps below:
